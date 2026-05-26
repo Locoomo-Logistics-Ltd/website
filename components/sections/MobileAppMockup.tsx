@@ -1,55 +1,102 @@
 import React from "react";
-
-import Section from "@/components/layout/Section";
 import Image from "next/image";
-import { Star } from "@/components/ui/app_svgs";
-import { LocoomoDifferenceDetails } from "@/lib/config";
+import Section from "@/components/layout/Section";
+import { RevealWrapper } from "@/components/ui/RevealWrapper";
 
+const DIFFERENCE_ITEMS = [
+  {
+    icon: "📍",
+    header: "Pickup Stations everywhere",
+    description:
+      "Drop off and collect packages at shops already in your neighbourhood — no chasing riders, no missed deliveries.",
+  },
+  {
+    icon: "💸",
+    header: "Genuinely affordable",
+    description:
+      "By routing packages through existing city movement, we cut out the cost of dedicated delivery trips.",
+  },
+  {
+    icon: "🕐",
+    header: "Collect on your schedule",
+    description:
+      "Packages wait for you at the Pickup Station. Collect when it's convenient — morning, evening, weekend.",
+  },
+  {
+    icon: "🌐",
+    header: "Community-powered network",
+    description:
+      "Every shop in the network makes the system stronger, faster, and more accessible for everyone.",
+  },
+  {
+    icon: "📲",
+    header: "Real-time notifications",
+    description:
+      "We notify you the moment your package arrives at the Pickup Station — no more wondering where it is.",
+  },
+  {
+    icon: "✅",
+    header: "No more failed drop-offs",
+    description:
+      "Packages don't depend on you being home at the exact right moment. Less stress for senders and recipients.",
+  },
+];
+
+/**
+ * Locoomo is Different section — used on the About page.
+ * Refactored to use new design system tokens.
+ */
 export default function MobileAppMockup() {
-  const locoomodifference = LocoomoDifferenceDetails();
-
   return (
-    <Section className="pt-16 lg:pt-28">
-      <div className="wrapper flex flex-col gap-10 md:flex-row">
+    <Section className="py-24 bg-[var(--bg)]">
+      <div className="flex flex-col md:flex-row gap-12 items-center">
         {/* Phone mockup */}
-        <div className="w-full md:w-1/3 flex justify-center md:justify-start">
-          <div className="relative w-[300px] h-[600px] md:w-[350px] md:h-[700px] lg:w-[450px] lg:h-[889px]">
+        <RevealWrapper className="w-full md:w-1/3 flex justify-center md:justify-start shrink-0">
+          <div className="relative w-[260px] h-[520px] md:w-[300px] md:h-[600px]">
             <Image
-              alt="iPhone mockup"
+              alt="Locoomo app mockup"
               src="/iphonemockup.svg"
               fill
-              className="object-contain"
+              className="object-contain drop-shadow-[0_20px_60px_rgba(0,108,223,0.25)]"
             />
           </div>
-        </div>
+        </RevealWrapper>
 
-        {/* Right side */}
-        <div className="w-full md:w-2/3 p-4 md:p-8 space-y-8">
-          {/* Header */}
-          <div className="header">
-            <h1 className="text-3xl md:text-4xl tracking-wide text-fontcolor font-semibold">
-              Locoomo is{" "}
-              <span className="text-primary flex items-center gap-3">
-                different <Star />
-              </span>
-            </h1>
-          </div>
+        {/* Right: Copy */}
+        <RevealWrapper delay={1} className="w-full md:w-2/3">
+          <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[var(--brand-blue)] mb-4">
+            Why Locoomo
+          </p>
+          <h2 className="font-display text-[clamp(26px,3.5vw,40px)] font-bold leading-[1.15] tracking-[-0.02em] text-[var(--text-primary)] mb-3">
+            Locoomo is{" "}
+            <span className="text-[var(--brand-blue)]">different.</span>
+          </h2>
+          <p className="text-[16px] text-[var(--text-secondary)] leading-[1.7] mb-10 max-w-[540px]">
+            We&apos;re not just another delivery app. We&apos;re building a smarter,
+            community-powered logistics network that works for everyone — senders,
+            recipients, shops, riders, and businesses.
+          </p>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {locoomodifference.map((item, idx) => (
-              <div key={idx} className="flex flex-col">
-                <div className="mb-5 flex size-10 p-2 items-center justify-center rounded-full bg-accent">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {DIFFERENCE_ITEMS.map((item) => (
+              <div key={item.header} className="flex flex-col gap-[6px]">
+                <div
+                  className="w-9 h-9 rounded-[10px] flex items-center justify-center text-[16px] mb-1"
+                  style={{ background: "rgba(0,108,223,0.08)", border: "1px solid rgba(0,108,223,0.14)" }}
+                  aria-hidden="true"
+                >
                   {item.icon}
                 </div>
-                <h3 className="mb-2 text-xl font-semibold">{item.header}</h3>
-                <p className="pr-5 text-fontcolor text-sm lg:text-base">
+                <h3 className="text-[14px] font-semibold text-[var(--text-primary)]">
+                  {item.header}
+                </h3>
+                <p className="text-[13px] text-[var(--text-muted)] leading-[1.6]">
                   {item.description}
                 </p>
               </div>
             ))}
           </div>
-        </div>
+        </RevealWrapper>
       </div>
     </Section>
   );

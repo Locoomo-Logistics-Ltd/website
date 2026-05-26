@@ -2,10 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 // import { SectionLabel } from "@/components/ui/SectionLabel";
-// import { ArrowRightIcon } from "@/components/icons";
+
 import { HERO_CONTENT } from "@/constants/content";
 import { WAITLIST_LINK } from "@/constants/brand";
 import HeroFlowDiagram from "@/components/sections/hero/HeroFlowDiagram";
+import { ArrowRightIcon } from "../icons";
 
 /**
  * Homepage hero section.
@@ -83,7 +84,7 @@ export default function Hero() {
             <Button variant="primary" size="lg" asChild>
               <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer">
                 {HERO_CONTENT.primaryCta}
-                {/* <ArrowRightIcon size={16} /> */}
+                <ArrowRightIcon size={16} />
               </Link>
             </Button>
             {/* <Button variant="ghost" size="lg" asChild>

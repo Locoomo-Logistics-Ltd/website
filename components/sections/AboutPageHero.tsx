@@ -1,60 +1,85 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getStartedLink } from "@/lib/config";
-import Section from "@/components/layout/Section";
+import { ArrowRightIcon } from "@/components/icons";
+import { WAITLIST_LINK } from "@/constants/brand";
 
+/**
+ * About page hero section.
+ * Refactored to use new design system tokens and components.
+ */
 export default function AboutPageHero() {
   return (
-    <Section className="relative bg-fontcolor lg:h-[calc(99vh-90px)] lg:max-h-[750px] space-y-8 py-10 md:py-20">
-      {/* White-lines patterned background */}
-      <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px]" />
-      <Image
-        alt="World Map Image"
-        src={"/bgMap.png"}
-        width={1000}
-        height={300}
-        className="absolute w-96 h-72 md:h-[30rem] md:w-[33rem] lg:w-[48rem] lg:h-[34rem] 2xl:w-[67rem] 2xl:h-[40rem] bottom-0 md:right-0 md:top-10 lg:top-20"
+    <section
+      className="relative overflow-hidden pt-[140px] pb-20"
+      aria-labelledby="about-hero-heading"
+      style={{ background: "var(--brand-navy)" }}
+    >
+      {/* Grid background */}
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(61,147,224,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(61,147,224,0.4) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 0%, transparent 80%)",
+          maskImage: "radial-gradient(ellipse at center, black 0%, transparent 80%)",
+        }}
+        aria-hidden="true"
       />
 
-      <div className="flex flex-col md:flex-row  gap-11 items-center justify-between h-full md:pl-3 md:pr-6 lg:pr-10">
-        <div className="z-10 w-full h-full md:w-[40%] flex flex-col justify-center text-white text-center sm:text-left gap-4 sm:gap-8 px-6 sm:px-1">
-          <h1 className="text-[2.5rem] md:text-5xl lg:text-6xl font-bold lg:leading-normal">
-            Your peace,{" "}
-            <span className="block text-aboutpageblue lg:leading-none">
-              Our promise.
-            </span>
-          </h1>
+      {/* World map background image */}
+      <Image
+        alt=""
+        src="/bgMap.png"
+        width={1000}
+        height={300}
+        className="absolute opacity-10 w-96 h-72 md:h-[30rem] md:w-[33rem] lg:w-[48rem] lg:h-[34rem] 2xl:w-[67rem] 2xl:h-[40rem] bottom-0 md:right-0 md:top-10 lg:top-20 pointer-events-none"
+        aria-hidden="true"
+      />
 
-          <p className="flex text-sm sm:text-base leading-relaxed md:pr-20">
-            Locoomo is changing the way logistics works in Nigeria by creating
-            more options for businesses and individuals. Think of us as the
-            &ldquo;Uber for Logistics&rdquo;, offering faster deliveries with a
-            vast network.
-          </p>
+      <div className="relative z-10 max-w-[1120px] mx-auto px-6">
+        <div className="flex flex-col md:flex-row gap-12 items-center justify-between h-full">
+          {/* Copy */}
+          <div className="w-full md:w-1/2 flex flex-col gap-6 text-center md:text-left">
+            <h1
+              id="about-hero-heading"
+              className="font-display text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white"
+            >
+              Your peace,{" "}
+              <span className="block text-[var(--brand-blue-light)] leading-none">
+                Our promise.
+              </span>
+            </h1>
 
-          <div className="flex flex-col sm:flex-row justify-center items-center sm:justify-normal mt-3 sm:mt-0">
-            <Button asChild className="py-6 px-8 w-fit">
-              <Link href={getStartedLink}>
-                Get Started <ArrowRight />
-              </Link>
-            </Button>
+            <p className="text-[16px] text-white/70 leading-[1.75] max-w-[480px]">
+              Locoomo is changing the way logistics works in Nigeria by creating
+              more options for businesses and individuals. Think of us as the
+              &ldquo;Uber for Logistics&rdquo;, offering smarter deliveries through
+              a vast network of Pickup Stations.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center md:justify-start mt-2">
+              <Button variant="primary" size="lg" asChild>
+                <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer">
+                  Get Started <ArrowRightIcon size={16} />
+                </Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Hero image */}
+          <div className="relative z-10 w-72 h-72 md:w-80 md:h-80 shrink-0 border-4 border-[rgba(61,147,224,0.3)] rounded-2xl overflow-hidden shadow-[var(--shadow-blue)]">
+            <Image
+              alt="Locoomo delivery network"
+              src="/aboutHeroImage.jpg"
+              fill
+              className="object-cover object-center"
+            />
           </div>
         </div>
-
-        {/* Image side */}
-        <div className="z-10 w-80 h-80 aspect-square border-4 rounded-xl">
-          <Image
-            alt="Hero Image"
-            src="/aboutHeroImage.jpg"
-            width={500}
-            height={500}
-            className="w-full h-full rounded-xl object-cover object-center"
-          />
-        </div>
       </div>
-    </Section>
+    </section>
   );
 }

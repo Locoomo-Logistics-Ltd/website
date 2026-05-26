@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-// import { ChevronDownIcon } from "@/components/icons";
+import { ChevronDownIcon } from "@/components/icons";
 
 interface AccordionItemProps {
   question: string;
@@ -41,7 +41,7 @@ export function AccordionItem({ question, answer, defaultOpen = false }: Accordi
         )}
       >
         <span>{question}</span>
-        {/* <ChevronDownIcon */}
+        <ChevronDownIcon
           size={20}
           className={cn(
             "shrink-0 text-[var(--text-muted)] transition-transform duration-300",

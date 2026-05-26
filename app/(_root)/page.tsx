@@ -5,7 +5,8 @@ import FutureVision from "@/components/sections/FutureVision";
 import Waitlist from "@/components/sections/Waitlist";
 import FAQ from "@/components/sections/FAQ";
 import LocoomoModel from "@/components/sections/locoomoModel";
-import { HowItWorksTabs } from "@/components/sections/HowItWorks";
+import HowItWorks from "@/components/sections/HowItWorks";
+
 
 
 export default function HomePage() {
@@ -13,7 +14,7 @@ export default function HomePage() {
     <main>
       <Hero />
       <Problem />
-      {/* <HowItWorksTabs /> */}
+      <HowItWorks />
       <LocoomoModel />
       <AudienceCards />
       <FutureVision />

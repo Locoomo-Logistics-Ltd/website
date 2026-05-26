@@ -1,20 +1,31 @@
-import Image from "next/image";
-import mainLogo from "@/public/logo.svg";
+import React from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { LogoIcon } from "@/components/icons/LogoIcon";
 
-// =============================
-// =========== Locoomo full logo
-// =============================
-export default function MainLogo() {
+interface MainLogoProps {
+  className?: string;
+  href?: string;
+}
+
+/**
+ * Full Locoomo wordmark: SVG mark + LOCOOMO text.
+ * Wraps in a <Link> by default.
+ */
+export default function MainLogo({ className, href = "/" }: MainLogoProps) {
   return (
-    <div className="flex items-center justify-center gap-3 font-bold font-inter text-xl sm:text-2xl">
-      <Image
-        src={mainLogo}
-        width={24}
-        height={4}
-        alt="locoomo logo"
-        className="flex"
-      />
-      <h1 className="uppercase text-[#000E2E]">locoomo</h1>
-    </div>
+    <Link
+      href={href}
+      className={cn(
+        "flex items-center gap-[10px]",
+        "font-display font-bold text-[18px] tracking-[-0.01em]",
+        "text-[var(--text-primary)] transition-opacity duration-200 hover:opacity-80",
+        className
+      )}
+      aria-label="Locoomo home"
+    >
+      <LogoIcon width={28} height={34} />
+      <span>LOCOOMO</span>
+    </Link>
   );
 }

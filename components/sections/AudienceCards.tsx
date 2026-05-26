@@ -3,7 +3,7 @@ import Link from "next/link";
 import Section from "@/components/layout/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { RevealWrapper } from "@/components/ui/RevealWrapper";
-// import { ArrowRightIcon } from "@/components/icons";
+import { ArrowRightIcon } from "@/components/icons";
 import { AUDIENCE_CONTENT } from "@/constants/content";
 
 /**
