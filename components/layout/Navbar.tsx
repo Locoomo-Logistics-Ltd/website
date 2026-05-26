@@ -1,113 +1,154 @@
 "use client";
 
-import Link from "next/link";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import React, { useState } from "react";
-import { Text, X } from "lucide-react";
-import { NavItems } from "@/lib/ui_config";
-import { getStartedLink } from "@/lib/config";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { NAV_LINKS } from "@/constants/content";
+import { WAITLIST_LINK } from "@/constants/brand";
 import MainLogo from "@/components/ui/MainLogo";
+import { ThemeToggle } from "@/components/ui/ThemeToggle"
+import { Button } from "@/components/ui/button";
+import { useScrolled } from "@/hooks/useScrolled";
 
-// ==============================
-// ============= Homepage Navbar
-// ==============================
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const navItems = NavItems();
+/**
+ * Site-wide sticky navbar.
+ * - Transparent at top, gains border on scroll
+ * - Glass-morphism backdrop blur
+ * - Desktop: inline nav links + theme toggle + CTAs
+ * - Mobile: hamburger menu with slide-down panel
+ */
+export default function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolled(20);
+
+  const handleSmoothScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (!href.startsWith("#")) return;
+    e.preventDefault();
+    setMobileOpen(false);
+    const target = document.querySelector(href);
+    if (target) {
+      window.scrollTo({ top: (target as HTMLElement).offsetTop - 80, behavior: "smooth" });
+    }
+  };
 
   return (
-    <div className="border-gray-300 border-b shadow-sm">
-      <header className="max-w-6xl font-inter px-4 lg:px-0 py-6 sm:py-8 w-full mx-auto ">
-        <nav className="flex w-full items-center mx-auto px-3   shrink-0 justify-between">
-          {/* Locoomo logo */}
-          <Link href="/" className="flex items-center" prefetch={false}>
-            <MainLogo />
-          </Link>
+    <>
+      <nav
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50",
+          "bg-[var(--nav-bg)] backdrop-blur-[20px] saturate-150",
+          "border-b transition-colors duration-300",
+          scrolled ? "border-[var(--border)]" : "border-transparent"
+        )}
+        aria-label="Main navigation"
+      >
+        <div className="max-w-[1120px] mx-auto px-6 h-[68px] flex items-center justify-between gap-6">
+          {/* Logo */}
+          <MainLogo />
 
-          <div className="flex items-center justify-between">
-            <div className="hidden md:flex gap-10 items-center">
-              <div className="flex gap-10 text-xl">
-                {navItems.map((item) => (
-                  <Link
-                    href={item.href}
-                    key={item.id}
-                    className={`${
-                      item.active ? "text-primary" : "text-[#000E2E]"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
+          {/* Desktop nav links */}
+          <ul className="hidden lg:flex items-center gap-9 list-none" role="list">
+            {NAV_LINKS.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  className={cn(
+                    "text-[14px] font-medium text-[var(--text-secondary)]",
+                    "transition-colors duration-200 hover:text-[var(--brand-blue)]"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-              {/* CTA button */}
-              <Link href={getStartedLink}>
-                <Button>Contact Us</Button>
+          {/* Desktop actions */}
+          <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
+            <Button variant="ghost" size="default" asChild>
+              <Link href="/sign-in">Sign In</Link>
+            </Button>
+            <Button variant="primary" size="default" asChild>
+              <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer">
+                Join the Waitlist
               </Link>
-            </div>
+            </Button>
+          </div>
 
-            {/* Mobile menu toggle */}
+          {/* Mobile: theme toggle + hamburger */}
+          <div className="flex md:hidden items-center gap-3">
+            <ThemeToggle />
             <button
-              title="menuButton"
-              className="flex md:hidden"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-label="Toggle menu"
+              className="flex flex-col gap-[5px] w-6 p-[2px]"
             >
-              {isOpen ? <X size={25} /> : <Text size={25} />}
+              <span
+                className={cn(
+                  "block h-[2px] bg-[var(--text-primary)] rounded-sm transition-all duration-300",
+                  mobileOpen && "rotate-45 translate-y-[7px]"
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-[2px] bg-[var(--text-primary)] rounded-sm transition-all duration-300",
+                  mobileOpen && "opacity-0"
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-[2px] bg-[var(--text-primary)] rounded-sm transition-all duration-300",
+                  mobileOpen && "-rotate-45 -translate-y-[7px]"
+                )}
+              />
             </button>
           </div>
-        </nav>
-      </header>
+        </div>
+      </nav>
 
-      {/* Mobile screen menu */}
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent
-          side="left"
-          className="block md:hidden w-[360px] max-[370px]:w-64"
-        >
-          <SheetHeader>
-            <SheetTitle>
-              <Link href="/" className="flex items-center" prefetch={false}>
-                <MainLogo />
-              </Link>
-            </SheetTitle>
-            {/* <SheetDescription className="flex justify-start px-1">
-              Locoomo Logistics
-            </SheetDescription> */}
-          </SheetHeader>
-
-          <div className="mt-11  overflow-y-auto h-fit w-full flex flex-col gap-6 font-inter">
-            {navItems.map((item, idx) => (
-              <Link
-                key={idx}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className={`h-full relative flex items-center whitespace-nowrap rounded-md ${
-                  item.active
-                    ? "text-primary shadow-sm"
-                    : "text-[#000E2E] hover:bg-neutral-200  hover:text-neutral-700"
-                }`}
-              >
-                <div className="relative font-bold text-lg px-1.5 flex flex-row items-center rounded-md duration-100">
-                  <span>{item.name}</span>
-                </div>
-              </Link>
-            ))}
-
-            {/* CTA button */}
-            <div className="flex">
-              <Button className="mt-1.5">
-                <Link href={getStartedLink}>Contact Us</Link>
-              </Button>
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
-    </div>
+      {/* Mobile menu panel */}
+      <div
+        className={cn(
+          "fixed top-[68px] left-0 right-0 z-40 md:hidden",
+          "bg-[var(--bg-glass)] backdrop-blur-[20px]",
+          "border-b border-[var(--border)]",
+          "flex flex-col gap-0 px-6 overflow-hidden",
+          "transition-all duration-300",
+          mobileOpen ? "max-h-[500px] py-4 pb-6" : "max-h-0 py-0"
+        )}
+        aria-hidden={!mobileOpen}
+      >
+        {NAV_LINKS.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={(e) => handleSmoothScroll(e, item.href)}
+            className={cn(
+              "py-4 text-[16px] font-medium text-[var(--text-secondary)]",
+              "border-b border-[var(--border)] last:border-b-0",
+              "hover:text-[var(--brand-blue)] transition-colors"
+            )}
+          >
+            {item.label}
+          </Link>
+        ))}
+        <div className="flex flex-col gap-3 mt-4">
+          <Button variant="ghost" size="lg" asChild className="w-full">
+            <Link href="/sign-in">Sign In</Link>
+          </Button>
+          <Button variant="primary" size="lg" asChild className="w-full">
+            <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer">
+              Join the Waitlist →
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </>
   );
 }
