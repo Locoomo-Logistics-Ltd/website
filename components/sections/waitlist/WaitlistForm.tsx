@@ -8,23 +8,46 @@ export default function WaitlistForm() {
   const [role, setRole] = useState(WAITLIST_CONTENT.roles[0].value);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | false>(false);
 
-  const handleSubmit = () => {
-    if (!email || !email.includes("@")) {
-      setError(true);
+  const handleSubmit = async () => {
+  if (!email || !email.includes("@")) {
+    setError("Please enter a valid email address.");
+    return;
+  }
+
+  setError(false);
+  setLoading(true);
+
+  try {
+    const res = await fetch("/api/waitlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, role }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      // Show the specific error from the server (format, disposable, domain)
+      setError(data.error || "Something went wrong. Please try again later.");
       return;
     }
-    setError(false);
-    console.log("Waitlist signup:", { email, role });
+
     setSubmitted(true);
-  };
+  } catch {
+    setError("Something went wrong. Please try again later.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   if (submitted) {
     return (
       <div className="py-4">
         <p className="text-white font-semibold text-[16px]">
-          🎉 You&apos;re on the list! We&apos;ll be in touch soon.
+          🎉 You&apos;re on the list! Check your inbox for a confirmation email.
         </p>
       </div>
     );
@@ -64,7 +87,7 @@ export default function WaitlistForm() {
         ))}
       </div>
 
-      {/* Email + submit — stacked on mobile, side by side from sm */}
+      {/* Email + submit */}
       <div className="flex flex-col gap-[10px]">
         <input
           type="email"
@@ -73,12 +96,14 @@ export default function WaitlistForm() {
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
           placeholder="Enter your email address"
           aria-label="Email address"
-          aria-invalid={error}
+          aria-invalid={!!error}
+          disabled={loading}
           className={cn(
             "w-full px-[18px] py-[14px] rounded-[12px] text-[14px] font-sans",
             "bg-white/[0.12] border text-white placeholder:text-white/50",
             "outline-none transition-all duration-200",
             "focus:bg-white/[0.16]",
+            "disabled:opacity-60 disabled:cursor-not-allowed",
             error
               ? "border-red-400/60 focus:border-red-400"
               : "border-white/25 focus:border-white/60"
@@ -86,15 +111,16 @@ export default function WaitlistForm() {
         />
         <button
           onClick={handleSubmit}
-          className="w-full sm:w-auto px-7 py-[14px] rounded-[12px] bg-white text-[var(--brand-blue)] text-[14px] font-bold whitespace-nowrap transition-all duration-200 hover:bg-white/90 hover:-translate-y-px"
+          disabled={loading}
+          className="w-full sm:w-auto px-7 py-[14px] rounded-[12px] bg-white text-[var(--brand-blue)] text-[14px] font-bold whitespace-nowrap transition-all duration-200 hover:bg-white/90 hover:-translate-y-px disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
-          {WAITLIST_CONTENT.cta}
+          {loading ? "Sending..." : WAITLIST_CONTENT.cta}
         </button>
       </div>
 
       {error && (
         <p className="text-red-300 text-[12px] mt-2" role="alert">
-          Please enter a valid email address.
+          {error}
         </p>
       )}
       <p className="text-white/45 text-[12px] mt-3">{WAITLIST_CONTENT.privacy}</p>

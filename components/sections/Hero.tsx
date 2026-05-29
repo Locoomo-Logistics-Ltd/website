@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 // import { SectionLabel } from "@/components/ui/SectionLabel";
 
 import { HERO_CONTENT } from "@/constants/content";
-import { WAITLIST_LINK } from "@/constants/brand";
+// import { WAITLIST_LINK } from "@/constants/brand";
 import HeroFlowDiagram from "@/components/sections/hero/HeroFlowDiagram";
 import { ArrowRightIcon } from "../icons";
 
@@ -82,7 +82,7 @@ export default function Hero() {
           {/* CTAs */}
           <div className="animate-fade-up animate-fade-up-delay-3 flex flex-wrap gap-3 mb-12">
             <Button variant="primary" size="lg" asChild>
-              <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer">
+              <Link href="/#waitlist"  rel="noopener noreferrer">
                 {HERO_CONTENT.primaryCta}
                 <ArrowRightIcon size={16} />
               </Link>

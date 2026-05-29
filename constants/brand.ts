@@ -24,4 +24,4 @@ export const SOCIAL_LINKS = {
   twitter: "https://x.com/LocoomoHaul",
 } as const;
 
-export const CONTACT_EMAIL = "hello@locoomo.com";
+export const CONTACT_EMAIL = "info@locoomo.com";
