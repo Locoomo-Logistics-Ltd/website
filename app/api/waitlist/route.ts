@@ -19,6 +19,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
+    
+
     // ── Email 1: Confirmation to the user ──────────────────
     await transporter.sendMail({
       from: '"Locoomo" <info@locoomo.com>',
