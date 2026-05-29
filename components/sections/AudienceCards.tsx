@@ -79,7 +79,7 @@ export default function AudienceCards() {
                 aria-label={card.cta}
               >
                 {card.cta}
-                {/* <ArrowRightIcon size={14} /> */}
+                <ArrowRightIcon size={14} />
               </Link>
             </article>
           </RevealWrapper>

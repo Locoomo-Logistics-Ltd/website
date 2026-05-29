@@ -18,10 +18,10 @@ export const REGISTER_LINK = "https://cbl.link/M4ofSQp";
 export const VENDOR_LINK = "https://cbl.link/ZUVV7cB";
 
 export const SOCIAL_LINKS = {
-  instagram: "https://instagram.com/locoomo",
-  linkedin: "https://linkedin.com/company/locoomo",
+  instagram: "https://www.instagram.com/locoomo?igsh=MXVwbmx2bm5vMndj",
+  linkedin: "https://www.linkedin.com/company/locoomo/",
   whatsapp: "https://wa.me/locoomo",
-  twitter: "https://x.com/locoomo",
+  twitter: "https://x.com/LocoomoHaul",
 } as const;
 
 export const CONTACT_EMAIL = "hello@locoomo.com";

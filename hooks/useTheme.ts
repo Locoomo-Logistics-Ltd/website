@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 
+//================================ CODE FOR LIGHT, DARK, SYSTEM CONTROL =======================
+
+/*
+
 export type Theme = "light" | "dark" | "system";
 
 const THEME_KEY = "locoomo-theme";
@@ -54,4 +58,34 @@ export function useTheme() {
   );
 
   return { theme, resolved, setTheme, mounted };
+}
+
+*/
+
+// ===========================================================
+
+// =================== JUST SYSTEM VERSION ONLY =====================
+export type Theme = "light" | "dark" | "system"; // Kept for type compatibility
+
+export function useTheme() {
+  const [resolved, setResolved] = useState<"light" | "dark">("light");
+  const [mounted, setMounted] = useState(false);
+
+  const applyTheme = useCallback(() => {
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.classList.toggle("dark-mode", isDark);
+    setResolved(isDark ? "dark" : "light");
+  }, []);
+
+  useEffect(() => {
+    applyTheme();
+    setMounted(true);
+
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener("change", applyTheme);
+
+    return () => mq.removeEventListener("change", applyTheme);
+  }, [applyTheme]);
+
+  return { resolved, mounted };
 }

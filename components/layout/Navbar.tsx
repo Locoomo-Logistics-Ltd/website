@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "@/constants/content";
-import { WAITLIST_LINK } from "@/constants/brand";
+// import { WAITLIST_LINK } from "@/constants/brand";
 import MainLogo from "@/components/ui/MainLogo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle"
 import { Button } from "@/components/ui/button";
@@ -70,13 +70,13 @@ export default function Navbar() {
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            <Button variant="ghost" size="default" asChild>
+            {/* <Button variant="ghost" size="default" asChild>
               <Link href="/sign-in">Sign In</Link>
-            </Button>
+            </Button> */}
             <Button variant="primary" size="default" asChild>
-              <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer">
-                Join the Waitlist
-              </Link>
+                <Link href="/#waitlist"  rel="noopener noreferrer">
+              Join the Waitlist 
+            </Link>
             </Button>
           </div>
 
@@ -114,6 +114,7 @@ export default function Navbar() {
 
       {/* Mobile menu panel */}
       <div
+       onClick={() => setMobileOpen(!mobileOpen)}
         className={cn(
           "fixed top-[68px] left-0 right-0 z-40 md:hidden",
           "bg-[var(--bg-glass)] backdrop-blur-[20px]",
@@ -139,11 +140,12 @@ export default function Navbar() {
           </Link>
         ))}
         <div className="flex flex-col gap-3 mt-4">
-          <Button variant="ghost" size="lg" asChild className="w-full">
+          {/* <Button variant="ghost" size="lg" asChild className="w-full">
             <Link href="/sign-in">Sign In</Link>
-          </Button>
+          </Button> */}
           <Button variant="primary" size="lg" asChild className="w-full">
-            <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer">
+            {/* <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer"> */}
+            <Link href="/#waitlist"  rel="noopener noreferrer">
               Join the Waitlist →
             </Link>
           </Button>

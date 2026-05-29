@@ -4,16 +4,16 @@ import React, { createContext, useContext } from "react";
 import { useTheme, type Theme } from "@/hooks/useTheme";
 
 interface ThemeContextValue {
-  theme: Theme;
+  // theme: Theme;
   resolved: "light" | "dark";
-  setTheme: (t: Theme) => void;
+  // setTheme: (t: Theme) => void;
   mounted: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: "system",
+  // theme: "system",
   resolved: "light",
-  setTheme: () => {},
+  // setTheme: () => {},
   mounted: false,
 });
 

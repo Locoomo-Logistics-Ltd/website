@@ -2,14 +2,20 @@ import React from "react";
 import Link from "next/link";
 import { LogoIcon } from "@/components/icons/LogoIcon";
 import { FOOTER_CONTENT } from "@/constants/content";
-
 import { SITE_NAME, SOCIAL_LINKS } from "@/constants/brand";
 
-const SOCIAL_ICONS: Record<string, string> = {
-  instagram: "📷",
-  linkedin: "💼",
-  whatsapp: "💬",
-  twitter: "🐦",
+import {
+  Camera,
+  Linkedin,
+  MessageCircleMore,
+  Twitter,
+} from "lucide-react";
+
+const SOCIAL_ICONS = {
+  instagram: Camera,
+  linkedin: Linkedin,
+  whatsapp: MessageCircleMore,
+  twitter: Twitter,
 };
 
 export default function Footer() {
@@ -24,12 +30,15 @@ export default function Footer() {
               <LogoIcon width={24} height={29} />
               <span>{SITE_NAME.toUpperCase()}</span>
             </div>
+
             <p className="text-[14px] text-[var(--text-muted)] leading-[1.6] max-w-[260px] mb-2">
               {FOOTER_CONTENT.tagline}
             </p>
+
             <p className="text-[14px] text-[var(--text-muted)]">
               {FOOTER_CONTENT.subTagline}
             </p>
+
             <p className="text-[12px] text-[var(--text-muted)] mt-4">
               {FOOTER_CONTENT.location}
             </p>
@@ -41,6 +50,7 @@ export default function Footer() {
               <p className="text-[12px] font-bold uppercase tracking-[0.1em] text-[var(--text-muted)] mb-4">
                 {col.title}
               </p>
+
               <ul className="flex flex-col gap-[10px] list-none">
                 {col.links.map((link) => (
                   <li key={link.label}>
@@ -64,18 +74,23 @@ export default function Footer() {
           </p>
 
           <div className="flex gap-3">
-            {Object.entries(SOCIAL_ICONS).map(([key, icon]) => (
-              <Link
-                key={key}
-                href={SOCIAL_LINKS[key as keyof typeof SOCIAL_LINKS] ?? "#"}
-                aria-label={key}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-[34px] h-[34px] rounded-[8px] flex items-center justify-center text-[15px] bg-[var(--surface)] border border-[var(--border)] transition-all duration-200 hover:bg-[var(--brand-blue)] hover:border-[var(--brand-blue)]"
-              >
-                {icon}
-              </Link>
-            ))}
+            {Object.entries(SOCIAL_ICONS).map(([key, Icon]) => {
+              const href =
+                SOCIAL_LINKS[key as keyof typeof SOCIAL_LINKS] ?? "#";
+
+              return (
+                <Link
+                  key={key}
+                  href={href}
+                  aria-label={key}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-[34px] h-[34px] rounded-[8px] flex items-center justify-center bg-[var(--surface)] border border-[var(--border)] transition-all duration-200 hover:bg-[var(--brand-blue)] hover:border-[var(--brand-blue)]"
+                >
+                  <Icon size={16} className="text-current" />
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

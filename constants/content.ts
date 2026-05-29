@@ -1,18 +1,20 @@
 
 
-import type { ReactNode } from "react";
+
 
 // ── Navigation ───────────────────────────────────────────────
 export const NAV_LINKS = [
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "For Pickup Stations", href: "#pickup-stations" },
-  { label: "For Riders & Drivers", href: "#riders" },
-  { label: "Our Vision", href: "#vision" },
+  { label: "How it Works", href: "/#how-it-works" },
+  {label: "About", href: "/about"},
+  // { label: "For Pickup Stations", href: "#pickup-stations" },
+  // { label: "For Riders & Drivers", href: "#riders" },
+  { label: "Our Vision", href: "/#vision" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 // ── Hero ─────────────────────────────────────────────────────
 export const HERO_CONTENT = {
-  badge: "Now building — Lagos, Nigeria",
+  badge: "Now building; Lagos, Nigeria",
   headline: "The future of delivery might look",
   headlineAccent: "a lot closer to home.",
   subheadline:
@@ -31,12 +33,12 @@ export const PROBLEM_CONTENT = {
   label: "Why Locoomo",
   headline: "The problem isn't just delivery. It's everything around it.",
   body1:
-    "You pay high delivery fees. You wait. You call. You text. You explain your location nine times. You miss the rider — or they miss you. The package goes back. You pay again.",
+    "You pay high delivery fees. You wait. You call. You text. You explain your location nine times. You miss the rider or they miss you. The package goes back. You pay again.",
   body2:
     "Too many deliveries depend on one thing going exactly right: the receiver being available at the exact moment a package arrives. When that doesn't happen, everyone feels it.",
   solutionLabel: "The Locoomo fix:",
   solution:
-    "Instead of every package depending on one doorstep moment, customers and businesses can use nearby Pickup Stations for easier drop-off and collection — fewer failed deliveries, lower costs, smoother experience.",
+    "Instead of every package depending on one doorstep moment, customers and businesses can use nearby Pickup Stations for easier drop-off and collection; fewer failed deliveries, lower costs, smoother experience.",
   pains: [
     {
       icon: "💸",
@@ -46,7 +48,7 @@ export const PROBLEM_CONTENT = {
     {
       icon: "📍",
       title: "Failed drop-offs",
-      desc: "Packages returned when receivers aren't available — costing everyone time and money.",
+      desc: "Packages returned when receivers aren't available; costing everyone time and money.",
     },
     {
       icon: "⏳",
@@ -56,7 +58,7 @@ export const PROBLEM_CONTENT = {
     {
       icon: "🗺️",
       title: "Location confusion",
-      desc: "Explaining your address to every new rider — multiple times, every delivery.",
+      desc: "Explaining your address to every new rider multiple times, every delivery.",
     },
     {
       icon: "🔁",
@@ -79,11 +81,11 @@ export const HOW_IT_WORKS_CONTENT = {
       steps: [
         {
           title: "Book your delivery",
-          desc: "Choose where your package is going and select the best delivery option — express or Pickup Station.",
+          desc: "Choose where your package is going and select the best delivery option; express or Pickup Station.",
         },
         {
           title: "Drop off at a Pickup Station",
-          desc: "For affordable delivery, drop your package at a nearby Pickup Station — any affiliated shop in your area.",
+          desc: "For affordable delivery, drop your package at a nearby Pickup Station; any affiliated shop in your area.",
         },
         {
           title: "Track with less stress",
@@ -97,7 +99,7 @@ export const HOW_IT_WORKS_CONTENT = {
       steps: [
         {
           title: "Get notified",
-          desc: "Once your package arrives at the Pickup Station, we let you know immediately — no waiting around wondering.",
+          desc: "Once your package arrives at the Pickup Station, we let you know immediately; no waiting around wondering.",
         },
         {
           title: "Collect when it works for you",
@@ -116,7 +118,7 @@ export const HOW_IT_WORKS_CONTENT = {
 export const MODEL_CONTENT = {
   label: "The Locoomo Model",
   headline: "A smarter delivery network can start with places people already trust.",
-  body: "Locoomo is building a network of Pickup Stations inside everyday businesses — shops, pharmacies, mini-marts. Packages move through places people already know, use, and can easily access.",
+  body: "Locoomo is building a network of Pickup Stations inside everyday businesses; shops, pharmacies, mini-marts. Packages move through places people already know, use, and can easily access.",
   benefits: [
     {
       icon: "👥",
@@ -146,13 +148,13 @@ export const AUDIENCE_CONTENT = {
   label: "Join the Network",
   headline: "Built for everyone in the delivery chain.",
   subheadline:
-    "Whether you're a shop owner, a rider, or a business — there's a place for you in the Locoomo network.",
+    "Whether you're a shop owner, a rider, or a business; there's a place for you in the Locoomo network.",
   cards: [
     {
       id: "pickup-stations",
       icon: "🏪",
       title: "For Pickup Stations",
-      desc: "Turn your shop into a Pickup Station. Earn more from the space you already have — shops, kiosks, pharmacies, mini-marts, any business with accessible space.",
+      desc: "Turn your shop into a Pickup Station. Earn more from the space you already have; shops, kiosks, pharmacies, mini-marts, any business with accessible space.",
       benefits: [
         "Earn on every package dropped off or collected",
         "Bring more people through your door",
@@ -166,7 +168,7 @@ export const AUDIENCE_CONTENT = {
       id: "riders",
       icon: "🛵",
       title: "For Riders & Drivers",
-      desc: "Join the network that keeps packages moving. Reliable riders and drivers are the engine of Locoomo — earn flexibly while being part of something smarter.",
+      desc: "Join the network that keeps packages moving. Reliable riders and drivers are the engine of Locoomo; earn flexibly while being part of something smarter.",
       benefits: [
         "Earn by moving packages on your existing route",
         "Work within a more structured delivery system",
@@ -180,7 +182,7 @@ export const AUDIENCE_CONTENT = {
       id: "businesses",
       icon: "🏢",
       title: "For Businesses",
-      desc: "Give your customers delivery options they'll actually use. Make delivery more flexible — reduce failed deliveries, improve convenience, build trust with your customers.",
+      desc: "Give your customers delivery options they'll actually use. Make delivery more flexible; reduce failed deliveries, improve convenience, build trust with your customers.",
       benefits: [
         "Flexible delivery beyond direct doorstep",
         "Reduce failed delivery rates significantly",
@@ -200,12 +202,12 @@ export const VISION_CONTENT = {
   headlineAccent: "We're building much more than that.",
   body: "Today, Locoomo is solving a real logistics problem: making delivery more affordable, reliable, and accessible through Pickup Stations. Tomorrow, the same network can support far more.",
   caption:
-    "We're building for the present first — and designing for the future from day one.",
+    "We're building for the present first, and designing for the future from day one.",
   pillars: [
     {
       icon: "📦",
       title: "Parcel Delivery",
-      desc: "Affordable, reliable delivery through Pickup Stations — starting now.",
+      desc: "Affordable, reliable delivery through Pickup Stations; starting now.",
     },
     {
       icon: "🏭",
@@ -225,7 +227,7 @@ export const VISION_CONTENT = {
     {
       icon: "♻️",
       title: "Recycling Collection",
-      desc: "Collection points for recycling companies — sustainable urban logistics.",
+      desc: "Collection points for recycling companies; sustainable urban logistics.",
     },
     {
       icon: "🌐",
@@ -240,7 +242,7 @@ export const WAITLIST_CONTENT = {
   label: "Join Early",
   headline: "Be first to experience a better way to send, receive, and move packages.",
   subheadline:
-    "Whether you want to send packages, become a Pickup Station, or join as a rider or driver — join the Locoomo waitlist and we'll keep you updated.",
+    "Whether you want to send packages, become a Pickup Station, or join as a rider or driver; join the Locoomo waitlist and we'll keep you updated.",
   roles: [
     { value: "customer", label: "I want to use Locoomo as a customer" },
     { value: "pickup-station", label: "I want to become a Pickup Station" },
@@ -262,7 +264,7 @@ export const FAQ_CONTENT = {
     {
       question: "How does Locoomo's Pickup Station service work?",
       answer:
-        "Drop your package at a nearby Locoomo Pickup Station. A driver already heading in the right direction picks it up and delivers it to a Pickup Station near your recipient. Your recipient gets notified and collects at their convenience — simple, affordable, no stress.",
+        "Drop your package at a nearby Locoomo Pickup Station. A driver already heading in the right direction picks it up and delivers it to a Pickup Station near your recipient. Your recipient gets notified and collects at their convenience; simple, affordable, no stress.",
     },
     {
       question: "Is there an express delivery option too?",
@@ -272,17 +274,17 @@ export const FAQ_CONTENT = {
     {
       question: "How will I track my package?",
       answer:
-        "Follow your delivery through our app (launching soon) with automatic updates at each stage. Pickup Station deliveries notify you at each handoff point. Express deliveries show continuous live tracking — no more wondering where your package is.",
+        "Follow your delivery through our app (launching soon) with automatic updates at each stage. Pickup Station deliveries notify you at each handoff point. Express deliveries show continuous live tracking; no more wondering where your package is.",
     },
     {
       question: "What kind of shop can become a Pickup Station?",
       answer:
-        "Any accessible business with foot traffic — pharmacies, mini-marts, kiosks, tailors, salons, convenience stores. If you have space and customers coming through, you can become a Locoomo Pickup Station and earn on every package handled.",
+        "Any accessible business with foot traffic; pharmacies, mini-marts, kiosks, tailors, salons, convenience stores. If you have space and customers coming through, you can become a Locoomo Pickup Station and earn on every package handled.",
     },
     {
       question: "When does Locoomo launch?",
       answer:
-        "We're currently building and onboarding our first Pickup Stations in Lagos. Join the waitlist to be among the first to access Locoomo — and we'll keep you updated as we expand.",
+        "We're currently building and onboarding our first Pickup Stations in Lagos. Join the waitlist to be among the first to access Locoomo and we'll keep you updated as we expand.",
     },
   ],
 } as const;

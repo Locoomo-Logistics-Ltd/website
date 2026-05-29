@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/icons";
-import { WAITLIST_LINK } from "@/constants/brand";
+// import { WAITLIST_LINK } from "@/constants/brand";
 
 /**
  * About page hero section.
@@ -62,7 +62,8 @@ export default function AboutPageHero() {
 
             <div className="flex flex-col sm:flex-row justify-center md:justify-start mt-2">
               <Button variant="primary" size="lg" asChild>
-                <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer">
+                 <Link href="/#waitlist"  rel="noopener noreferrer">
+          
                   Get Started <ArrowRightIcon size={16} />
                 </Link>
               </Button>

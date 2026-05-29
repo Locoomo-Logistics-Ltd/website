@@ -4,16 +4,12 @@ import { RevealWrapper } from "@/components/ui/RevealWrapper";
 import { WAITLIST_CONTENT } from "@/constants/content";
 import WaitlistForm from "./waitlist/WaitlistForm";
 
-/**
- * Waitlist section — gradient CTA banner with role selection + email form.
- * Form logic is extracted to WaitlistForm (Client Component).
- */
 export default function Waitlist() {
   return (
     <Section id="waitlist" className="py-16 bg-[var(--bg-subtle)]">
       <RevealWrapper>
         <div
-          className="relative rounded-[28px] overflow-hidden px-16 py-16"
+          className="relative rounded-[24px] overflow-hidden px-6 py-10 sm:px-10 sm:py-12 lg:px-16 lg:py-16"
           style={{
             background: "linear-gradient(135deg, #0050b3 0%, #006CDF 50%, #3D93E0 100%)",
             boxShadow: "0 20px 80px rgba(0,108,223,0.4)",
@@ -28,17 +24,17 @@ export default function Waitlist() {
 
           <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             {/* Copy + Form */}
-            <div className="max-w-[560px]">
-              <h2 className="font-display text-[clamp(26px,3.5vw,40px)] font-extrabold text-white mb-4 leading-[1.15] tracking-[-0.02em]">
+            <div>
+              <h2 className="font-display text-[clamp(22px,3.5vw,40px)] font-extrabold text-white mb-4 leading-[1.15] tracking-[-0.02em]">
                 {WAITLIST_CONTENT.headline}
               </h2>
-              <p className="text-[16px] text-white/75 leading-[1.7] mb-8">
+              <p className="text-[15px] text-white/75 leading-[1.7] mb-8">
                 {WAITLIST_CONTENT.subheadline}
               </p>
               <WaitlistForm />
             </div>
 
-            {/* Decorative cards */}
+            {/* Decorative cards — desktop only */}
             <div className="hidden lg:block" aria-hidden="true">
               <svg viewBox="0 0 280 320" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[280px] ml-auto">
                 <defs>

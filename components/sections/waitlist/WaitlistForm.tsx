@@ -4,11 +4,6 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { WAITLIST_CONTENT } from "@/constants/content";
 
-/**
- * Waitlist signup form — Client Component.
- * Handles role selection, email input, and submission state.
- * Replace the mock submit handler with your real API call.
- */
 export default function WaitlistForm() {
   const [role, setRole] = useState(WAITLIST_CONTENT.roles[0].value);
   const [email, setEmail] = useState("");
@@ -21,7 +16,6 @@ export default function WaitlistForm() {
       return;
     }
     setError(false);
-    // TODO: Replace with actual API / form submission
     console.log("Waitlist signup:", { email, role });
     setSubmitted(true);
   };
@@ -48,7 +42,7 @@ export default function WaitlistForm() {
           <label
             key={r.value}
             className={cn(
-              "flex items-center gap-3 px-[18px] py-[14px] rounded-[12px] cursor-pointer",
+              "flex items-center gap-3 px-4 py-[13px] rounded-[12px] cursor-pointer",
               "bg-white/[0.08] border border-white/[0.15]",
               "transition-all duration-200",
               "hover:bg-white/[0.14] hover:border-white/30",
@@ -61,15 +55,17 @@ export default function WaitlistForm() {
               value={r.value}
               checked={role === r.value}
               onChange={() => setRole(r.value)}
-              className="accent-white w-4 h-4"
+              className="accent-white w-4 h-4 shrink-0"
             />
-            <span className="text-[14px] font-medium text-white/90">{r.label}</span>
+            <span className="text-[13px] sm:text-[14px] font-medium text-white/90 leading-snug">
+              {r.label}
+            </span>
           </label>
         ))}
       </div>
 
-      {/* Email + submit */}
-      <div className="flex flex-col sm:flex-row gap-[10px]">
+      {/* Email + submit — stacked on mobile, side by side from sm */}
+      <div className="flex flex-col gap-[10px]">
         <input
           type="email"
           value={email}
@@ -79,7 +75,7 @@ export default function WaitlistForm() {
           aria-label="Email address"
           aria-invalid={error}
           className={cn(
-            "flex-1 px-[18px] py-[14px] rounded-[12px] text-[14px] font-sans",
+            "w-full px-[18px] py-[14px] rounded-[12px] text-[14px] font-sans",
             "bg-white/[0.12] border text-white placeholder:text-white/50",
             "outline-none transition-all duration-200",
             "focus:bg-white/[0.16]",
@@ -90,7 +86,7 @@ export default function WaitlistForm() {
         />
         <button
           onClick={handleSubmit}
-          className="px-7 py-[14px] rounded-[12px] bg-white text-[var(--brand-blue)] text-[14px] font-bold whitespace-nowrap transition-all duration-200 hover:bg-white/90 hover:-translate-y-px"
+          className="w-full sm:w-auto px-7 py-[14px] rounded-[12px] bg-white text-[var(--brand-blue)] text-[14px] font-bold whitespace-nowrap transition-all duration-200 hover:bg-white/90 hover:-translate-y-px"
         >
           {WAITLIST_CONTENT.cta}
         </button>
