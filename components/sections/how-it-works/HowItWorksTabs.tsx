@@ -25,7 +25,7 @@ export default function HowItWorksTabs() {
           {HOW_IT_WORKS_CONTENT.tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => setActiveTab(tab.id as "customers")}
               role="tab"
               aria-selected={activeTab === tab.id}
               className={cn(

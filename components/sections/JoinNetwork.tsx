@@ -8,9 +8,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BluePuzzle } from "@/components/ui/app_svgs";
 import { JoinNetworkCardDetails } from "@/lib/config";
 
+// 1. Define what properties a card item is allowed to have
+interface NetworkCard {
+  index: string | number;
+  title: string;
+  description: string;
+  image: string;
+  href: string;
+  buttonText: string;
+}
+
 export default function JoinNetwork() {
   const roadNetworkImage = "/road.png";
-  const cardDetails = JoinNetworkCardDetails();
+  
+  // 2. Cast cardDetails as an array of NetworkCard to satisfy TypeScript
+  const cardDetails = JoinNetworkCardDetails() as NetworkCard[];
 
   return (
     <Section className="pt-20">
@@ -18,7 +30,6 @@ export default function JoinNetwork() {
         <h1 className="flex sm:gap-3 flex-col sm:flex-row text-3xl md:text-4xl tracking-wide text-fontcolor font-semibold">
           Join{" "}
           <span className="flex gap-5 text-primary">
-            {" "}
             the network <BluePuzzle />
           </span>
         </h1>
@@ -47,7 +58,7 @@ export default function JoinNetwork() {
                 <div className="flex w-full aspect-square">
                   <article className="relative isolate flex flex-col justify-end rounded-md px-2 pb-5 h-full bg-slate-600">
                     <Image
-                      src={card.image}
+                      src={card.image || roadNetworkImage} // Fallback to safe path if image is missing
                       width={5000}
                       height={500}
                       alt=""
@@ -61,10 +72,10 @@ export default function JoinNetwork() {
 
                       <Button className="z-10 px-5 py-2 w-fit">
                         <Link
-                          href={card.href}
+                          href={card.href || "#"}
                           className="flex flex-row gap-2 items-center text-xs"
                         >
-                          {card.buttonText} <ArrowRight />
+                          {card.buttonText || "Learn More"} <ArrowRight />
                         </Link>
                       </Button>
                     </div>
@@ -97,7 +108,7 @@ export default function JoinNetwork() {
                 {cardDetails.map((card, idx) => (
                   <TabsTrigger
                     key={idx}
-                    value={card.title.toLowerCase().replace(/s$/, "")}
+                    value={card.title ? card.title.toLowerCase().replace(/s$/, "") : `tab-${idx}`}
                     className="flex gap-3 text-fontcolor text-2xl font-medium font-montserrat py-3"
                   >
                     {card.index}. {card.title} <ArrowUpRight className="" />
@@ -110,13 +121,13 @@ export default function JoinNetwork() {
             {cardDetails.map((card, idx) => (
               <TabsContent
                 key={idx}
-                value={card.title.toLowerCase().replace(/s$/, "")}
+                value={card.title ? card.title.toLowerCase().replace(/s$/, "") : `tab-${idx}`}
                 className="md:col-span-2"
               >
                 <div className="flex w-full aspect-square">
                   <article className="relative isolate flex flex-col justify-end rounded-md px-4 pb-8 h-full bg-slate-600">
                     <Image
-                      src={card.image}
+                      src={card.image || roadNetworkImage}
                       width={5000}
                       height={500}
                       alt=""
@@ -131,10 +142,10 @@ export default function JoinNetwork() {
 
                       <Button className="z-10 px-5 py-2 w-fit">
                         <Link
-                          href={card.href}
+                          href={card.href || "#"}
                           className="flex flex-row gap-2 items-center text-base"
                         >
-                          {card.buttonText} <ArrowRight />
+                          {card.buttonText || "Learn More"} <ArrowRight />
                         </Link>
                       </Button>
                     </div>
