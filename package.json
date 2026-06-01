@@ -18,6 +18,7 @@
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.471.1",
     "next": "15.1.4",
+    "nodemailer": "^8.0.10",
     "react": "^18.3.1",
     "react-bootstrap-icons": "^1.11.5",
     "react-dom": "^18.3.1",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.0",
     "@types/prop-types": "^15.7.14",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
