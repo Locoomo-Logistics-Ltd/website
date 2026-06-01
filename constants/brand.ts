@@ -20,8 +20,8 @@ export const VENDOR_LINK = "https://cbl.link/ZUVV7cB";
 export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/locoomo?igsh=MXVwbmx2bm5vMndj",
   linkedin: "https://www.linkedin.com/company/locoomo/",
-  whatsapp: "https://wa.me/locoomo",
+  whatsapp: "https://wa.me/2347025233470?text=Hi%20Locoomo!%20I%27d%20like%20to%20know%20more%20about%20your%20service.",
   twitter: "https://x.com/LocoomoHaul",
 } as const;
 
-export const CONTACT_EMAIL = "info@locoomo.com";
+export const CONTACT_EMAIL = "info@locoomo.com"; 

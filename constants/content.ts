@@ -317,7 +317,7 @@ export const FOOTER_CONTENT = {
       title: "Contact",
       links: [
         { label: "info@locoomo.com", href: "mailto:info@locoomo.com" },
-        { label: "WhatsApp", href: "https://wa.me/locoomo" },
+        { label: "WhatsApp", href: "https://wa.me/2347025233470?text=Hi%20Locoomo!%20I%27d%20like%20to%20know%20more%20about%20your%20service." },
         { label: "Instagram", href: "https://www.instagram.com/locoomo?igsh=MXVwbmx2bm5vMndj" },
         { label: "LinkedIn", href: "https://www.linkedin.com/company/locoomo/" },
       ],
