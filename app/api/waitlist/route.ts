@@ -52,7 +52,7 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: "info@locoomo.com",
+    user: process.env.ZOHO_SMTP_USER,
     pass: process.env.ZOHO_SMTP_PASSWORD,
   },
 });
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
 
     // 6. Confirmation email to user
     await transporter.sendMail({
-      from: '"Locoomo" <info@locoomo.com>',
+      from: '"Locoomo" <${process.env.ZOHO_SMTP_USER}>',
       to: trimmedEmail,
       subject: "You're on the Locoomo waitlist! 🎉",
       html: `

@@ -1,0 +1,48 @@
+name: Deploy Locoomo Website
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # 1. Isolate the environment folders
+            if [ "${{ github.ref_name }}" = "main" ]; then
+              TARGET_DIR="/var/www/main/website"
+              PM2_NAME="website-main"
+            else
+              TARGET_DIR="/var/www/dev/website"
+              PM2_NAME="website-dev"
+            fi
+
+            # 2. Clone the repo if it's the first time running
+            if [ ! -d "$TARGET_DIR" ]; then
+              mkdir -p $TARGET_DIR
+              git clone -b ${{ github.ref_name }} https://github.com/Locoomo-Logistics-Ltd/website.git $TARGET_DIR
+            fi
+
+            cd $TARGET_DIR
+            
+            # 3. Pull the latest code updates
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
+
+            # 4. Install, Build (safely backed by Swap RAM), and Run PM2
+            yarn install --frozen-lockfile
+            yarn build
+            pm2 startOrRestart ecosystem.config.js --only $PM2_NAME --update-env
+            pm2 save
