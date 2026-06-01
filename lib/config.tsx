@@ -24,9 +24,6 @@ export const LocoomoDifferenceDetails = () => [
   { title: "No failed drop-offs", description: "Pickup Stations are always accessible." },
 ];
 
-
-
-"use client";
 /**
  * @deprecated
  * NavItems from here are no longer used — Navbar.tsx now reads from

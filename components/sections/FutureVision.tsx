@@ -1,5 +1,4 @@
 import React from "react";
-import Section from "@/components/layout/Section";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { RevealWrapper } from "@/components/ui/RevealWrapper";
 import { VISION_CONTENT } from "@/constants/content";

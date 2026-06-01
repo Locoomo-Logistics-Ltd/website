@@ -12,7 +12,7 @@
 // ];
 
 
-export function ThemeToggle({ className }: { className?: string }) {
+export function ThemeToggle({}: { className?: string }) {
   // const { theme, setTheme, mounted } = useThemeContext();
 
   // Avoid hydration mismatch — render placeholder until mounted
