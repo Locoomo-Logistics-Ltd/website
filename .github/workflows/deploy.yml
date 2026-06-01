@@ -20,7 +20,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # 1. Isolate the environment folders
+            # 1. Target folders in the home directory
             if [ "${{ github.ref_name }}" = "main" ]; then
               TARGET_DIR="/home/ubuntu/main/website"
               PM2_NAME="website-main"
@@ -29,20 +29,20 @@ jobs:
               PM2_NAME="website-dev"
             fi
 
-            # 2. Authenticated clone if it's the first time running
-            if [ ! -d "$TARGET_DIR" ]; then
-              sudo mkdir -p $TARGET_DIR
-              sudo chown -R ubuntu:ubuntu $TARGET_DIR
+            # 2. If the folder doesn't have a .git repo inside it, clear and clone cleanly
+            if [ ! -d "$TARGET_DIR/.git" ]; then
+              rm -rf $TARGET_DIR
+              mkdir -p $TARGET_DIR
               git clone -b ${{ github.ref_name }} https://${{ secrets.DEPLOYS_TOKEN }}@github.com/Locoomo-Logistics-Ltd/website.git $TARGET_DIR
             fi
 
             cd $TARGET_DIR
             
-            # 3. Pull the latest updates securely
+            # 3. Pull fresh updates securely
             git checkout ${{ github.ref_name }}
             git pull https://${{ secrets.DEPLOYS_TOKEN }}@github.com/Locoomo-Logistics-Ltd/website.git ${{ github.ref_name }}
 
-            # 4. Install, Build, and Launch
+            # 4. Build and hand off to PM2
             yarn install --frozen-lockfile
             yarn build
             pm2 startOrRestart ecosystem.config.js --only $PM2_NAME --update-env
