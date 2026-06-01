@@ -22,10 +22,10 @@ jobs:
           script: |
             # 1. Isolate the environment folders
             if [ "${{ github.ref_name }}" = "main" ]; then
-              TARGET_DIR="/var/www/main/website"
+              TARGET_DIR="/home/ubuntu/main/website"
               PM2_NAME="website-main"
             else
-              TARGET_DIR="/var/www/dev/website"
+              TARGET_DIR="/home/ubuntu/dev/website"
               PM2_NAME="website-dev"
             fi
 
