@@ -37,23 +37,43 @@ async function saveToSheet(
   phone: string,
   role: string
 ): Promise<{ success?: boolean; error?: string }> {
-  const res = await fetch(process.env.GOOGLE_SCRIPT_URL!, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, email, phone, role }),
-  });
+  const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
+  if (!scriptUrl) {
+    console.error("[Waitlist API Configuration Error]: GOOGLE_SCRIPT_URL is missing.");
+    return { error: "configuration_error" };
+  }
 
-  return res.json();
+  try {
+    const res = await fetch(scriptUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone, role }),
+    });
+
+    if (!res.ok) {
+      return { error: "http_error" };
+    }
+
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      return { error: "invalid_response_format" };
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("[Google Sheets Fetch Error]:", err);
+    return { error: "network_failure" };
+  }
 }
 
-// ── Nodemailer ─────────────────────────────────────────────────
+// ── Nodemailer Transporter Configuration ──────────────────────────
 const transporter = nodemailer.createTransport({
   host: "smtp.zoho.com",
   port: 587,
   secure: false,
   auth: {
-    user: process.env.ZOHO_SMTP_USER,
-    pass: process.env.ZOHO_SMTP_PASSWORD,
+    user: process.env.ZOHO_SMTP_USER || "",
+    pass: process.env.ZOHO_SMTP_PASSWORD || "",
   },
 });
 
@@ -116,9 +136,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const smtpUser = process.env.ZOHO_SMTP_USER;
+    if (!smtpUser || !process.env.ZOHO_SMTP_PASSWORD) {
+      console.error("[Waitlist API Configuration Error]: Zoho SMTP credentials missing.");
+      return NextResponse.json({ success: true, warning: "Saved to sheet, email skipped." });
+    }
+
     // 6. Confirmation email to user
     await transporter.sendMail({
-      from: '"Locoomo" <${process.env.ZOHO_SMTP_USER}>',
+      from: `"Locoomo" <${smtpUser}>`, // Fixed template literal string interpolation
       to: trimmedEmail,
       subject: "You're on the Locoomo waitlist! 🎉",
       html: `
@@ -204,8 +230,8 @@ export async function POST(req: NextRequest) {
 
     // 7. Internal notification
     await transporter.sendMail({
-      from: '"Locoomo Waitlist" <info@locoomo.com>',
-      to: "info@locoomo.com",
+      from: `"Locoomo Waitlist" <${smtpUser}>`,
+      to: smtpUser,
       subject: `New waitlist signup: ${trimmedName} (${trimmedEmail})`,
       html: `
         <div style="font-family:Arial,sans-serif;padding:24px;max-width:480px;">
@@ -222,7 +248,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true });
 
   } catch (err) {
-    console.error("[Waitlist API error]", err);
+    console.error("[Waitlist API Route Catch Block]:", err);
     return NextResponse.json({ error: "Failed to submit. Please try again." }, { status: 500 });
   }
 }

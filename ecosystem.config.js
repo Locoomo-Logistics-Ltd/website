@@ -5,7 +5,7 @@ module.exports = {
       script: "./node_modules/next/dist/bin/next",
       args: "start",
       env: {
-        NODE_ENV: "production", // Change to production so it serves your optimized yarn build!
+        NODE_ENV: "production",
         PORT: 3001
       }
     },
