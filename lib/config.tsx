@@ -1,8 +1,4 @@
-/**
- * @deprecated
- * Kept for backward compatibility with the About and Contact pages.
- * New code should import directly from @/constants/brand and @/constants/content.
- */
+
 
 export { WAITLIST_LINK as getStartedLink } from "@/constants/brand";
 
@@ -25,11 +21,4 @@ export const LocoomoDifferenceDetails = () => [
 ];
 
 
-
-"use client";
-/**
- * @deprecated
- * NavItems from here are no longer used — Navbar.tsx now reads from
- * @/constants/content NAV_LINKS directly. Kept for any legacy imports.
- */
 export const NavItems = () => [];

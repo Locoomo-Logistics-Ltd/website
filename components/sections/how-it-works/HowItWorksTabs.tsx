@@ -6,14 +6,19 @@ import { HOW_IT_WORKS_CONTENT } from "@/constants/content";
 import CustomerFlowVisual from "./CustomerFlowVisual";
 import RecipientFlowVisual from "./RecipientFlowVisual";
 
+
+type TabId = typeof HOW_IT_WORKS_CONTENT.tabs[number]["id"];
+
 const VISUALS = {
   customers: <CustomerFlowVisual />,
   recipients: <RecipientFlowVisual />,
-};
+} satisfies Record<TabId, React.ReactNode>;
+
+
 
 
 export default function HowItWorksTabs() {
-  const [activeTab, setActiveTab] = useState(HOW_IT_WORKS_CONTENT.tabs[0].id);
+  const [activeTab, setActiveTab] = useState<TabId>(HOW_IT_WORKS_CONTENT.tabs[0].id);
 
   const currentTab = HOW_IT_WORKS_CONTENT.tabs.find((t) => t.id === activeTab)!;
 
@@ -75,7 +80,7 @@ export default function HowItWorksTabs() {
 
         {/* Visual */}
         <div className="hidden lg:flex items-center justify-center bg-[var(--bg-subtle)] border border-[var(--border)] rounded-[20px] overflow-hidden aspect-square">
-          {VISUALS[activeTab as keyof typeof VISUALS]}
+          {VISUALS[activeTab]}
         </div>
       </div>
     </div>

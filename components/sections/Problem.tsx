@@ -4,11 +4,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { RevealWrapper } from "@/components/ui/RevealWrapper";
 import { PROBLEM_CONTENT } from "@/constants/content";
 
-/**
- * Problem section — explains the delivery pain points.
- * Left: headline + body + solution card.
- * Right: pain point list cards.
- */
+
 export default function Problem() {
   return (
     <Section
@@ -54,7 +50,8 @@ export default function Problem() {
         {/* Right: Pain points */}
         <RevealWrapper delay={2}>
           <ul className="flex flex-col gap-4 list-none" role="list">
-            {PROBLEM_CONTENT.pains.map((pain, i) => (
+            {/* {PROBLEM_CONTENT.pains.map((pain, i) => ( */}
+            {PROBLEM_CONTENT.pains.map((pain) => (
               <li
                 key={pain.title}
                 className="flex items-start gap-[14px] bg-[var(--bg-card)] border border-[var(--border)] rounded-[14px] p-[18px_20px] transition-all duration-200 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow)]"
