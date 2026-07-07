@@ -24,12 +24,5 @@ export const LocoomoServices = () => [
   { title: "Affordable deliveries", description: "Description here..." },
 ];
 
-<<<<<<< HEAD
-=======
-/**
- * @deprecated
- * NavItems from here are no longer used — Navbar.tsx now reads from
- * @/constants/content NAV_LINKS directly. Kept for any legacy imports.
- */
->>>>>>> 3e0265f5022995e2e1a86bd8e6d47ae0d52c7702
+
 export const NavItems = () => [];
