@@ -50,8 +50,7 @@ export default function Problem() {
         {/* Right: Pain points */}
         <RevealWrapper delay={2}>
           <ul className="flex flex-col gap-4 list-none" role="list">
-            {/* {PROBLEM_CONTENT.pains.map((pain, i) => ( */}
-            {PROBLEM_CONTENT.pains.map((pain) => (
+            {PROBLEM_CONTENT.pains.map((pain, i) => (
               <li
                 key={pain.title}
                 className="flex items-start gap-[14px] bg-[var(--bg-card)] border border-[var(--border)] rounded-[14px] p-[18px_20px] transition-all duration-200 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow)]"

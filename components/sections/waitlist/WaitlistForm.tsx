@@ -4,8 +4,14 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { WAITLIST_CONTENT } from "@/constants/content";
 
+// 1. Define a strict type for the allowed roles
+type WaitlistRole = "driver" | "customer" | "pickup-station" | "rider" | "business";
+
 export default function WaitlistForm() {
-  const [role, setRole] = useState(WAITLIST_CONTENT.roles[0].value);
+  // 2. Pass the type to useState so it accepts the full union of roles
+  const [role, setRole] = useState<WaitlistRole>(
+    WAITLIST_CONTENT.roles[0].value as WaitlistRole
+  );
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -14,7 +20,6 @@ export default function WaitlistForm() {
   const [error, setError] = useState<string | false>(false);
 
   const handleSubmit = async () => {
-    // Basic client-side check before hitting the API
     if (!name.trim()) {
       setError("Please enter your name.");
       return;
@@ -104,7 +109,8 @@ export default function WaitlistForm() {
               name="waitlist-role"
               value={r.value}
               checked={role === r.value}
-              onChange={() => setRole(r.value)}
+              // Cast r.value to our type safely inside the updater
+              onChange={() => setRole(r.value as WaitlistRole)}
               className="accent-white w-4 h-4 shrink-0"
             />
             <span className="text-[13px] sm:text-[14px] font-medium text-white/90 leading-snug">
@@ -116,7 +122,6 @@ export default function WaitlistForm() {
 
       {/* Fields */}
       <div className="flex flex-col gap-[10px] mb-[10px]">
-        {/* Name */}
         <input
           type="text"
           value={name}
@@ -127,7 +132,6 @@ export default function WaitlistForm() {
           className={inputClass}
         />
 
-        {/* Phone */}
         <input
           type="tel"
           value={phone}
@@ -138,7 +142,6 @@ export default function WaitlistForm() {
           className={inputClass}
         />
 
-        {/* Email */}
         <input
           type="email"
           value={email}
