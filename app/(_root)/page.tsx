@@ -1,25 +1,22 @@
 import Hero from "@/components/sections/Hero";
-import Problem from "@/components/sections/Problem";
-import AudienceCards from "@/components/sections/AudienceCards";
-import FutureVision from "@/components/sections/FutureVision";
-import Waitlist from "@/components/sections/Waitlist";
-import FAQ from "@/components/sections/FAQ";
-import LocoomoModel from "@/components/sections/locoomoModel";
+import Services from "@/components/sections/Services";
 import HowItWorks from "@/components/sections/HowItWorks";
+import JoinNetwork from "@/components/sections/JoinNetwork";
+import BrandPromise from "@/components/sections/BrandPromise";
 
-
-
-export default function HomePage() {
+// =======================
+// ============= Homepage
+// =======================
+export default function Home() {
   return (
-    <main>
-      <Hero />
-      <Problem />
-      <HowItWorks />
-      <LocoomoModel />
-      <AudienceCards />
-      <FutureVision />
-      <Waitlist />
-      <FAQ />
-    </main>
+    <div className="w-full">
+      <main className="flex flex-col items-center">
+        <Hero />
+        <Services />
+        <HowItWorks />
+        <JoinNetwork />
+        <BrandPromise />
+      </main>
+    </div>
   );
 }

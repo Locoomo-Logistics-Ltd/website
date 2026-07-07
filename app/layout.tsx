@@ -1,63 +1,34 @@
-import type { Metadata, Viewport } from "next";
-import { Sora, DM_Sans } from "next/font/google";
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import { SITE_NAME, SITE_DESCRIPTION } from "@/constants/brand";
-import "@/app/globals.css";
+import type { Metadata } from "next";
+import { Montserrat, Inter } from "next/font/google";
+import "./globals.css";
 
-const sora = Sora({
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["300", "400", "500", "600", "700", "800"],
-  display: "swap",
 });
-
-const dmSans = DM_Sans({
+const inter = Inter({
+  variable: "--font-inter",
+  weight: ["300", "400", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME}; The future of delivery might look a lot closer to home.`,
-  description: SITE_DESCRIPTION,
-  openGraph: {
-    title: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    siteName: SITE_NAME,
-    locale: "en_NG",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: SITE_NAME,
-    description: SITE_DESCRIPTION,
-  },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#060b17" },
-  ],
+  // metadataBase: new URL("https://tivere.tech"),
+  // openGraph: { images: ["/og.png"] },
+  title: "Locoomo – Seamless deliveries for you and your business",
+  description:
+    "More options for your deliveries. Locoomo is a logistics solution that offers you delivery options that work.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head />
-      <body
-        className={`${sora.variable} ${dmSans.variable} font-sans antialiased`}
-        suppressHydrationWarning
-      >
-        <ThemeProvider>{children}</ThemeProvider>
+    <html lang="en">
+      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
+        {children}
       </body>
     </html>
   );
