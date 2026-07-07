@@ -17,11 +17,10 @@
     "clsx": "^2.1.1",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.471.1",
-    "next": "15.1.4",
-    "nodemailer": "^8.0.10",
-    "react": "^18.3.1",
+    "next": "^16.2.10",
+    "react": "^19.2.7",
     "react-bootstrap-icons": "^1.11.5",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.2.7",
     "react-lottie": "^1.2.10",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
@@ -29,7 +28,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
-    "@types/nodemailer": "^8.0.0",
     "@types/prop-types": "^15.7.14",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
@@ -39,5 +37,10 @@
     "prop-types": "^15.8.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "core-js@2.6.12": true,
+    "es5-ext@0.10.64": true,
+    "sharp@0.34.5": true
   }
 }
