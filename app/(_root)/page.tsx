@@ -1,6 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import WhatCanIDo from "@/components/sections/WhatCanIDo";
-import ServiceOptions from "@/components/sections/ServiceOptions";
+// import ServiceOptions from "@/components/sections/ServiceOptions";
 import HowItWorks from "@/components/sections/HowItWorks";
 import WhyLocoomo from "@/components/sections/WhyLocoomo";
 import PickupStationNetwork from "@/components/sections/PickupStationNetwork";
@@ -16,7 +16,7 @@ export default function HomePage() {
     <main>
       <Hero />
       <WhatCanIDo />
-      <ServiceOptions />
+      {/* <ServiceOptions /> */}
       <HowItWorks />
       <WhyLocoomo />
       <PickupStationNetwork />

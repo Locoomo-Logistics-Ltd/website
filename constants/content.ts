@@ -136,13 +136,13 @@ export const HOW_IT_WORKS_CONTENT = {
       step: "02",
       title: "Choose",
       icon: "slidersHorizontal" as IconKey,
-      desc: "Choose the delivery option that fits you — a nearby Pickup Station or doorstep.",
+      desc: "Choose a nearby Pickup Stations for drop-off and pickup.",
     },
     {
       step: "03",
       title: "Drop Off",
       icon: "store" as IconKey,
-      desc: "Follow the drop-off instructions Locoomo gives you for your chosen option.",
+      desc: "Drop-off you items at the drop-off station you have chosen in step 2.",
     },
     {
       step: "04",

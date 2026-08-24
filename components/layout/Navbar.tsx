@@ -59,14 +59,14 @@ export default function Navbar() {
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            <Button variant="ghost" size="default" asChild>
+            {/* <Button variant="ghost" size="default" asChild>
               <Link href={APP_URL} target="_blank" rel="noopener noreferrer">
                 Open App
               </Link>
-            </Button>
+            </Button> */}
             <Button variant="primary" size="default" asChild>
               <Link href={APP_ROLE_SELECT_URL} target="_blank" rel="noopener noreferrer">
-                Book a Delivery
+                Sign up
               </Link>
             </Button>
           </div>
