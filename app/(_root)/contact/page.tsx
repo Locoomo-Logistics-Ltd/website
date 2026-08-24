@@ -2,11 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { CONTACT_EMAIL, SOCIAL_LINKS } from "@/constants/brand";
+import { APP_ROLE_SELECT_URL, CONTACT_EMAIL, SOCIAL_LINKS } from "@/constants/brand";
 import {
   Mail,
   MessageCircleMore,
-  Camera,
+  Instagram,
   Linkedin,
 } from "lucide-react";
 
@@ -26,7 +26,7 @@ const CONTACT_METHODS = [
     label: "Chat on WhatsApp",
   },
   {
-    icon: Camera,
+    icon: Instagram,
     title: "Instagram",
     desc: "Follow us for updates, news, and behind-the-scenes.",
     action: SOCIAL_LINKS.instagram,
@@ -138,11 +138,11 @@ export default function ContactPage() {
               </p>
 
               <h2 className="font-display text-[28px] font-bold text-[var(--text-primary)] mb-3">
-                Lagos, Nigeria 🇳🇬
+                Lagos, Nigeria
               </h2>
 
               <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] max-w-[440px]">
-                We&apos;re building our first Pickup Station network right here in
+                We&apos;re building our Pickup Station network right here in
                 Lagos. If you&apos;re a local business, shop, or rider interested
                 in partnering; we&apos;d especially love to hear from you.
               </p>
@@ -150,8 +150,8 @@ export default function ContactPage() {
 
             <div className="shrink-0">
               <Button variant="primary" size="lg" asChild>
-                <Link href="/#waitlist" rel="noopener noreferrer">
-                  Join the Waitlist →
+                <Link href={APP_ROLE_SELECT_URL} target="_blank" rel="noopener noreferrer">
+                  Book a Delivery →
                 </Link>
               </Button>
             </div>

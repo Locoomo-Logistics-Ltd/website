@@ -2,51 +2,51 @@ import React from "react";
 import Image from "next/image";
 import Section from "@/components/layout/Section";
 import { RevealWrapper } from "@/components/ui/RevealWrapper";
+import { getIcon, type IconKey } from "@/components/icons/map";
 
-const DIFFERENCE_ITEMS = [
+const DIFFERENCE_ITEMS: { icon: IconKey; header: string; description: string }[] = [
   {
-    icon: "📍",
+    icon: "mapPin",
     header: "Pickup Stations everywhere",
     description:
       "Drop off and collect packages at shops already in your neighbourhood — no chasing riders, no missed deliveries.",
   },
   {
-    icon: "💸",
+    icon: "wallet",
     header: "Genuinely affordable",
     description:
       "By routing packages through existing city movement, we cut out the cost of dedicated delivery trips.",
   },
   {
-    icon: "🕐",
+    icon: "clock",
     header: "Collect on your schedule",
     description:
       "Packages wait for you at the Pickup Station. Collect when it's convenient — morning, evening, weekend.",
   },
   {
-    icon: "🌐",
-    header: "Community-powered network",
+    icon: "globe",
+    header: "A growing network",
     description:
-      "Every shop in the network makes the system stronger, faster, and more accessible for everyone.",
+      "Every business in the network makes the system stronger, faster, and more accessible for everyone.",
   },
   {
-    icon: "📲",
-    header: "Real-time notifications",
+    icon: "route",
+    header: "Visible from booking to collection",
     description:
-      "We notify you the moment your package arrives at the Pickup Station — no more wondering where it is.",
+      "Your order's status and route are visible in the app from the moment you book it.",
   },
   {
-    icon: "✅",
-    header: "No more failed drop-offs",
+    icon: "packageCheck",
+    header: "Fewer failed drop-offs",
     description:
       "Packages don't depend on you being home at the exact right moment. Less stress for senders and recipients.",
   },
 ];
 
 /**
- * Locoomo is Different section — used on the About page.
- * Refactored to use new design system tokens.
+ * "Locoomo is different" — differentiators grid, used on the About page.
  */
-export default function MobileAppMockup() {
+export default function WhyLocoomoGrid() {
   return (
     <Section className="py-24 bg-[var(--bg)]">
       <div className="flex flex-col md:flex-row gap-12 items-center">
@@ -72,29 +72,32 @@ export default function MobileAppMockup() {
             <span className="text-[var(--brand-blue)]">different.</span>
           </h2>
           <p className="text-[16px] text-[var(--text-secondary)] leading-[1.7] mb-10 max-w-[540px]">
-            We&apos;re not just another delivery app. We&apos;re building a smarter,
-            community-powered logistics network that works for everyone — senders,
-            recipients, shops, riders, and businesses.
+            We&apos;re not just another delivery app. We&apos;re building a
+            neighbourhood-powered logistics network that works for everyone —
+            senders, recipients, Pickup Stations, riders, and businesses.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {DIFFERENCE_ITEMS.map((item) => (
-              <div key={item.header} className="flex flex-col gap-[6px]">
-                <div
-                  className="w-9 h-9 rounded-[10px] flex items-center justify-center text-[16px] mb-1"
-                  style={{ background: "rgba(0,108,223,0.08)", border: "1px solid rgba(0,108,223,0.14)" }}
-                  aria-hidden="true"
-                >
-                  {item.icon}
+            {DIFFERENCE_ITEMS.map((item) => {
+              const Icon = getIcon(item.icon);
+              return (
+                <div key={item.header} className="flex flex-col gap-[6px]">
+                  <div
+                    className="w-9 h-9 rounded-[10px] flex items-center justify-center mb-1"
+                    style={{ background: "rgba(0,108,223,0.08)", border: "1px solid rgba(0,108,223,0.14)" }}
+                    aria-hidden="true"
+                  >
+                    <Icon size={16} className="text-[var(--brand-blue)]" />
+                  </div>
+                  <h3 className="text-[14px] font-semibold text-[var(--text-primary)]">
+                    {item.header}
+                  </h3>
+                  <p className="text-[13px] text-[var(--text-muted)] leading-[1.6]">
+                    {item.description}
+                  </p>
                 </div>
-                <h3 className="text-[14px] font-semibold text-[var(--text-primary)]">
-                  {item.header}
-                </h3>
-                <p className="text-[13px] text-[var(--text-muted)] leading-[1.6]">
-                  {item.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </RevealWrapper>
       </div>

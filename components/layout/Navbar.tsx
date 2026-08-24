@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "@/constants/content";
-// import { WAITLIST_LINK } from "@/constants/brand";
+import { APP_ROLE_SELECT_URL, APP_URL } from "@/constants/brand";
 import MainLogo from "@/components/ui/MainLogo";
-import { ThemeToggle } from "@/components/ui/ThemeToggle"
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { useScrolled } from "@/hooks/useScrolled";
 
@@ -14,25 +14,15 @@ import { useScrolled } from "@/hooks/useScrolled";
  * Site-wide sticky navbar.
  * - Transparent at top, gains border on scroll
  * - Glass-morphism backdrop blur
- * - Desktop: inline nav links + theme toggle + CTAs
+ * - Anchor links rely on native hash navigation + the global smooth-scroll
+ *   CSS and each target section's scroll-mt (see globals.css) rather than
+ *   a JS scroll handler, so they work the same whether you're already on
+ *   "/" or navigating there from another page.
  * - Mobile: hamburger menu with slide-down panel
  */
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const scrolled = useScrolled(20);
-
-  const handleSmoothScroll = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    if (!href.startsWith("#")) return;
-    e.preventDefault();
-    setMobileOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      window.scrollTo({ top: (target as HTMLElement).offsetTop - 80, behavior: "smooth" });
-    }
-  };
 
   return (
     <>
@@ -50,12 +40,11 @@ export default function Navbar() {
           <MainLogo />
 
           {/* Desktop nav links */}
-          <ul className="hidden lg:flex items-center gap-9 list-none" role="list">
+          <ul className="hidden lg:flex items-center gap-8 list-none" role="list">
             {NAV_LINKS.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  onClick={(e) => handleSmoothScroll(e, item.href)}
                   className={cn(
                     "text-[14px] font-medium text-[var(--text-secondary)]",
                     "transition-colors duration-200 hover:text-[var(--brand-blue)]"
@@ -70,13 +59,15 @@ export default function Navbar() {
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            {/* <Button variant="ghost" size="default" asChild>
-              <Link href="/sign-in">Sign In</Link>
-            </Button> */}
+            <Button variant="ghost" size="default" asChild>
+              <Link href={APP_URL} target="_blank" rel="noopener noreferrer">
+                Open App
+              </Link>
+            </Button>
             <Button variant="primary" size="default" asChild>
-                <Link href="/#waitlist"  rel="noopener noreferrer">
-              Join the Waitlist 
-            </Link>
+              <Link href={APP_ROLE_SELECT_URL} target="_blank" rel="noopener noreferrer">
+                Book a Delivery
+              </Link>
             </Button>
           </div>
 
@@ -114,7 +105,6 @@ export default function Navbar() {
 
       {/* Mobile menu panel */}
       <div
-       onClick={() => setMobileOpen(!mobileOpen)}
         className={cn(
           "fixed top-[68px] left-0 right-0 z-40 md:hidden",
           "bg-[var(--bg-glass)] backdrop-blur-[20px]",
@@ -129,7 +119,7 @@ export default function Navbar() {
           <Link
             key={item.href}
             href={item.href}
-            onClick={(e) => handleSmoothScroll(e, item.href)}
+            onClick={() => setMobileOpen(false)}
             className={cn(
               "py-4 text-[16px] font-medium text-[var(--text-secondary)]",
               "border-b border-[var(--border)] last:border-b-0",
@@ -140,13 +130,14 @@ export default function Navbar() {
           </Link>
         ))}
         <div className="flex flex-col gap-3 mt-4">
-          {/* <Button variant="ghost" size="lg" asChild className="w-full">
-            <Link href="/sign-in">Sign In</Link>
-          </Button> */}
+          <Button variant="ghost" size="lg" asChild className="w-full">
+            <Link href={APP_URL} target="_blank" rel="noopener noreferrer">
+              Open App
+            </Link>
+          </Button>
           <Button variant="primary" size="lg" asChild className="w-full">
-            {/* <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer"> */}
-            <Link href="/#waitlist"  rel="noopener noreferrer">
-              Join the Waitlist →
+            <Link href={APP_ROLE_SELECT_URL} target="_blank" rel="noopener noreferrer">
+              Book a Delivery →
             </Link>
           </Button>
         </div>

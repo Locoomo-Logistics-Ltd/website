@@ -1,97 +1,123 @@
+"use client";
 
+import React from "react";
+import { User, Store, Bike, Home, Package } from "lucide-react";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+
+const VIEWBOX = 480;
+
+// Sender → Pickup Station → Rider → Pickup Station → Recipient
+const NODES = [
+  { key: "sender", x: 64, y: 116, r: 26, icon: User, label: "Sender", hub: false },
+  { key: "station1", x: 172, y: 196, r: 34, icon: Store, label: "Pickup Station", hub: true },
+  { key: "rider", x: 272, y: 142, r: 24, icon: Bike, label: "Rider", hub: false },
+  { key: "station2", x: 336, y: 258, r: 34, icon: Store, label: "Pickup Station", hub: true },
+  { key: "recipient", x: 416, y: 340, r: 26, icon: Home, label: "Recipient", hub: false },
+] as const;
+
+const ROUTE_PATH =
+  "M 64 116 Q 118 158 172 196 Q 222 176 272 142 Q 304 196 336 258 Q 376 300 416 340";
+
+const pct = (v: number) => `${(v / VIEWBOX) * 100}%`;
+
+/**
+ * Hero network animation: a package travels sender → Pickup Station → rider
+ * → Pickup Station → recipient. Background routes/motion live in SVG;
+ * node icons are real lucide-react components overlaid as positioned divs
+ * at the same coordinates (SVG text/emoji glyphs aren't real icons).
+ */
 export default function HeroFlowDiagram() {
+  const reduced = usePrefersReducedMotion();
+
   return (
-    <div className="w-full max-w-[480px] aspect-square">
+    <div
+      className="relative w-full max-w-[480px] aspect-square"
+      role="img"
+      aria-label="A package moving from sender to Pickup Station, to rider, to Pickup Station, to recipient"
+    >
       <svg
-        viewBox="0 0 480 480"
+        viewBox={`0 0 ${VIEWBOX} ${VIEWBOX}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        aria-label="Locoomo delivery network diagram"
-        role="img"
-        className="w-full h-full"
+        className="absolute inset-0 w-full h-full"
+        aria-hidden="true"
       >
         <defs>
-          <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#006CDF" stopOpacity="0.06" />
+          <radialGradient id="heroBgGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#006CDF" stopOpacity="0.07" />
             <stop offset="100%" stopColor="#006CDF" stopOpacity="0" />
           </radialGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+          <filter id="heroGlow">
+            <feGaussianBlur stdDeviation="3" result="blur" />
             <feMerge>
-              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
         </defs>
 
-        {/* Background glow circle */}
-        <circle cx="240" cy="240" r="200" fill="url(#bgGrad)" />
+        <circle cx={VIEWBOX / 2} cy={VIEWBOX / 2} r={200} fill="url(#heroBgGrad)" />
 
-        {/* Route paths */}
-        <path id="route1" d="M 120 150 Q 200 140 240 240" stroke="#006CDF" strokeWidth="2" strokeDasharray="6 4" opacity="0.5" />
-        <path id="route2" d="M 240 240 Q 300 300 360 300" stroke="#3D93E0" strokeWidth="2" strokeDasharray="6 4" opacity="0.5" />
-        <path id="route3" d="M 150 320 Q 190 280 240 240" stroke="#006CDF" strokeWidth="1.5" strokeDasharray="4 6" opacity="0.35" />
-        <path id="route4" d="M 240 240 Q 330 180 390 160" stroke="#3D93E0" strokeWidth="1.5" strokeDasharray="4 6" opacity="0.3" />
+        <path id="heroRoute" d={ROUTE_PATH} stroke="#006CDF" strokeWidth="2" strokeDasharray="6 5" opacity="0.4" />
 
-        {/* Animated travel dots */}
-        <circle r="4" fill="#006CDF" opacity="0.9" filter="url(#glow)">
-          <animateMotion dur="3s" repeatCount="indefinite">
-            <mpath href="#route1" />
-          </animateMotion>
-        </circle>
-        <circle r="3.5" fill="#3D93E0" opacity="0.8" filter="url(#glow)">
-          <animateMotion dur="2.5s" repeatCount="indefinite" begin="1s">
-            <mpath href="#route2" />
-          </animateMotion>
-        </circle>
-        <circle r="3" fill="#005CBE" opacity="0.6" filter="url(#glow)">
-          <animateMotion dur="4s" repeatCount="indefinite" begin="0.5s">
-            <mpath href="#route4" />
-          </animateMotion>
-        </circle>
+        {NODES.map((n) => (
+          <circle
+            key={n.key}
+            cx={n.x}
+            cy={n.y}
+            r={n.r}
+            fill={n.hub ? "#006CDF" : "var(--bg-card, #EDF3FB)"}
+            stroke={n.hub ? "#3D93E0" : "#006CDF"}
+            strokeWidth={n.hub ? 2 : 1.5}
+          />
+        ))}
 
-        {/* SENDER node */}
-        <circle cx="120" cy="150" r="28" fill="#EDF3FB" stroke="#006CDF" strokeWidth="1.5" />
-        <text x="120" y="143" textAnchor="middle" fontSize="18">📦</text>
-        <text x="120" y="158" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#006CDF" fontWeight="600">SENDER</text>
-        <circle cx="120" cy="150" r="28" fill="none" stroke="#006CDF" strokeWidth="1.5" opacity="0">
-          <animate attributeName="r" values="28;44" dur="2s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.4;0" dur="2s" repeatCount="indefinite" />
-        </circle>
+        {!reduced &&
+          NODES.filter((n) => n.hub).map((n) => (
+            <circle key={`pulse-${n.key}`} cx={n.x} cy={n.y} r={n.r} fill="none" stroke="#006CDF" strokeWidth="1" opacity="0">
+              <animate attributeName="r" values={`${n.r};${n.r + 18}`} dur="2.4s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.35;0" dur="2.4s" repeatCount="indefinite" />
+            </circle>
+          ))}
 
-        {/* PICKUP STATION hub */}
-        <circle cx="240" cy="240" r="38" fill="#006CDF" stroke="#3D93E0" strokeWidth="2" />
-        <circle cx="240" cy="240" r="44" fill="none" stroke="#006CDF" strokeWidth="1" opacity="0.3">
-          <animate attributeName="r" values="38;54" dur="2.5s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.4;0" dur="2.5s" repeatCount="indefinite" />
-        </circle>
-        <text x="240" y="232" textAnchor="middle" fontSize="20">🏪</text>
-        <text x="240" y="249" textAnchor="middle" fontFamily="Sora,sans-serif" fontSize="8" fill="white" fontWeight="700">PICKUP</text>
-        <text x="240" y="259" textAnchor="middle" fontFamily="Sora,sans-serif" fontSize="8" fill="white" fontWeight="700">STATION</text>
-
-        {/* RECIPIENT node */}
-        <circle cx="360" cy="300" r="28" fill="#EDF3FB" stroke="#3D93E0" strokeWidth="1.5" />
-        <text x="360" y="293" textAnchor="middle" fontSize="18">🏠</text>
-        <text x="360" y="308" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#3D93E0" fontWeight="600">RECIPIENT</text>
-        <circle cx="360" cy="300" r="28" fill="none" stroke="#3D93E0" strokeWidth="1.5" opacity="0">
-          <animate attributeName="r" values="28;44" dur="2.2s" repeatCount="indefinite" begin="1.5s" />
-          <animate attributeName="opacity" values="0.4;0" dur="2.2s" repeatCount="indefinite" begin="1.5s" />
-        </circle>
-
-        {/* RIDER node */}
-        <circle cx="390" cy="160" r="24" fill="#EDF3FB" stroke="#3D93E0" strokeWidth="1.5" />
-        <text x="390" y="153" textAnchor="middle" fontSize="16">🛵</text>
-        <text x="390" y="168" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="8" fill="#3D93E0" fontWeight="600">RIDER</text>
-
-        {/* NEARBY SHOP node */}
-        <circle cx="150" cy="320" r="24" fill="#EDF3FB" stroke="#006CDF" strokeWidth="1.5" />
-        <text x="150" y="313" textAnchor="middle" fontSize="16">🏬</text>
-        <text x="150" y="328" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="8" fill="#006CDF" fontWeight="600">NEARBY SHOP</text>
-
-        {/* Route labels */}
-        <text x="170" y="175" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#006CDF" opacity="0.6" transform="rotate(-8,170,175)">drop off</text>
-        <text x="295" y="265" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#3D93E0" opacity="0.6" transform="rotate(18,295,265)">collect</text>
+        {!reduced && (
+          <circle r="5" fill="#006CDF" filter="url(#heroGlow)">
+            <animateMotion dur="6s" repeatCount="indefinite">
+              <mpath href="#heroRoute" />
+            </animateMotion>
+          </circle>
+        )}
+        {reduced && <circle cx={NODES[2].x} cy={NODES[2].y} r="5" fill="#006CDF" />}
       </svg>
+
+      {NODES.map((n) => {
+        const Icon = n.icon;
+        return (
+          <div
+            key={n.key}
+            className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1"
+            style={{ left: pct(n.x), top: pct(n.y) }}
+          >
+            <Icon
+              size={n.hub ? 20 : 16}
+              strokeWidth={2.25}
+              className={n.hub ? "text-white" : "text-[var(--brand-blue)]"}
+            />
+            <span
+              className="text-[8px] font-semibold uppercase tracking-[0.08em] whitespace-nowrap"
+              style={{ color: n.hub ? "#3D93E0" : "var(--text-muted)" }}
+            >
+              {n.label}
+            </span>
+          </div>
+        );
+      })}
+
+      {/* Package glyph badge, purely decorative */}
+      <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[var(--bg-card)] border border-[var(--border)] shadow-[var(--shadow)]">
+        <Package size={13} className="text-[var(--brand-blue)]" />
+        <span className="text-[9px] font-semibold text-[var(--text-muted)]">Live network</span>
+      </div>
     </div>
   );
 }

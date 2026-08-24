@@ -1,5 +1,3 @@
-
-
 export const BRAND_COLORS = {
   blue: "#006CDF",
   blueDark: "#005CBE",
@@ -9,13 +7,16 @@ export const BRAND_COLORS = {
 } as const;
 
 export const SITE_NAME = "Locoomo";
-export const SITE_TAGLINE = "Peace as a service.";
+export const SITE_TAGLINE = "Neighbourhood logistics, connected.";
 export const SITE_DESCRIPTION =
-  "Locoomo is turning nearby shops into Pickup Stations so customers and businesses can send and receive packages with less stress, better reliability, and more affordable delivery options.";
+  "Locoomo connects customers to a network of neighbourhood Pickup Stations and delivery options — book a delivery, find a Pickup Station, or become part of the network. Starting in Lagos, built for neighbourhoods everywhere.";
 
-export const WAITLIST_LINK = "https://cbl.link/APzo5e9";
-export const REGISTER_LINK = "https://cbl.link/M4ofSQp";
-export const VENDOR_LINK = "https://cbl.link/ZUVV7cB";
+// The live product. Every "use Locoomo" CTA (Consumer, Rider, or Node
+// Operator / Pickup Station signup) routes here — the app self-registers
+// each role from this single entry point, so no role-specific sub-route
+// should be invented on the marketing site.
+export const APP_URL = "https://app.locoomo.com";
+export const APP_ROLE_SELECT_URL = "https://app.locoomo.com/role-select";
 
 export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/locoomo?igsh=MXVwbmx2bm5vMndj",
@@ -24,4 +25,4 @@ export const SOCIAL_LINKS = {
   twitter: "https://x.com/LocoomoHaul",
 } as const;
 
-export const CONTACT_EMAIL = "info@locoomo.com"; 
+export const CONTACT_EMAIL = "info@locoomo.com";

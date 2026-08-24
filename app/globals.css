@@ -193,6 +193,21 @@ button {
   }
 }
 
+/* ── Reduced motion ─────────────────────────────────────────── */
+/* Complements the usePrefersReducedMotion() hook, which gates the JS/SMIL
+   side (diagram motion, auto-advancing steps). This covers the CSS side:
+   entrance/hover animations collapse to their end state instantly. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ── Custom scrollbar ───────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-subtle); }

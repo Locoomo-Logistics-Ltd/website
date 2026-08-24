@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LogoIcon } from "@/components/icons/LogoIcon";
-import { SITE_NAME, WAITLIST_LINK } from "@/constants/brand";
+import { SITE_NAME, APP_ROLE_SELECT_URL } from "@/constants/brand";
 
 /**
  * Sign-in page — styled with the new Locoomo design system.
@@ -76,8 +76,8 @@ export default function SignInPage() {
         </p>
         <p className="text-center text-[12px] text-[var(--text-muted)] mt-4">
           Not yet on Locoomo?{" "}
-          <Link href={WAITLIST_LINK} target="_blank" rel="noopener noreferrer" className="text-[var(--brand-blue)] hover:underline underline-offset-2">
-            Join the waitlist →
+          <Link href={APP_ROLE_SELECT_URL} target="_blank" rel="noopener noreferrer" className="text-[var(--brand-blue)] hover:underline underline-offset-2">
+            Get started →
           </Link>
         </p>
       </div>

@@ -20,8 +20,17 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME}; The future of delivery might look a lot closer to home.`,
+  title: `${SITE_NAME} — Neighbourhood Package Delivery & Pickup Stations`,
   description: SITE_DESCRIPTION,
+  keywords: [
+    "package delivery",
+    "parcel delivery Lagos",
+    "Pickup Station",
+    "delivery service",
+    "send packages",
+    "neighbourhood delivery",
+    "logistics network",
+  ],
   openGraph: {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,

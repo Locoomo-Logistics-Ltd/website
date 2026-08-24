@@ -5,25 +5,29 @@ import { FOOTER_CONTENT } from "@/constants/content";
 import { SITE_NAME, SOCIAL_LINKS } from "@/constants/brand";
 
 import {
-  Camera,
+  Instagram,
   Linkedin,
   MessageCircleMore,
   Twitter,
 } from "lucide-react";
 
 const SOCIAL_ICONS = {
-  instagram: Camera,
+  instagram: Instagram,
   linkedin: Linkedin,
   whatsapp: MessageCircleMore,
   twitter: Twitter,
 };
+
+function isExternal(href: string) {
+  return href.startsWith("http");
+}
 
 export default function Footer() {
   return (
     <footer className="bg-[var(--bg-subtle)] border-t border-[var(--border)] pt-16 pb-8">
       <div className="max-w-[1120px] mx-auto px-6">
         {/* Top grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-[10px] font-display font-bold text-[18px] text-[var(--text-primary)] mb-[14px]">
@@ -35,7 +39,7 @@ export default function Footer() {
               {FOOTER_CONTENT.tagline}
             </p>
 
-            <p className="text-[14px] text-[var(--text-muted)]">
+            <p className="text-[13px] text-[var(--text-muted)] max-w-[240px]">
               {FOOTER_CONTENT.subTagline}
             </p>
 
@@ -56,6 +60,8 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
+                      target={isExternal(link.href) ? "_blank" : undefined}
+                      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
                       className="text-[14px] text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--brand-blue)]"
                     >
                       {link.label}

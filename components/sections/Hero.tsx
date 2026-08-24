@@ -1,18 +1,15 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-// import { SectionLabel } from "@/components/ui/SectionLabel";
-
 import { HERO_CONTENT } from "@/constants/content";
-// import { WAITLIST_LINK } from "@/constants/brand";
+import { getIcon } from "@/components/icons/map";
 import HeroFlowDiagram from "@/components/sections/hero/HeroFlowDiagram";
 import { ArrowRightIcon } from "../icons";
 
 /**
  * Homepage hero section.
- * Layout: two columns on desktop (copy left, SVG diagram right).
+ * Layout: two columns on desktop (copy left, network animation right).
  * All text from HERO_CONTENT constant.
- * Entry animations via animate-fade-up Tailwind utilities.
  */
 export default function Hero() {
   return (
@@ -82,42 +79,28 @@ export default function Hero() {
           {/* CTAs */}
           <div className="animate-fade-up animate-fade-up-delay-3 flex flex-wrap gap-3 mb-12">
             <Button variant="primary" size="lg" asChild>
-              <Link href="/#waitlist"  rel="noopener noreferrer">
+              <Link href={HERO_CONTENT.primaryHref} target="_blank" rel="noopener noreferrer">
                 {HERO_CONTENT.primaryCta}
                 <ArrowRightIcon size={16} />
               </Link>
             </Button>
-            {/* <Button variant="ghost" size="lg" asChild>
-              <a
-                href="#how-it-works"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document
-                    .querySelector("#how-it-works")
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
-              >
-                {HERO_CONTENT.secondaryCta}
-              </a>
-            </Button> */}
 
             <Button variant="ghost" size="lg" asChild>
-  <a href="#how-it-works">
-    {HERO_CONTENT.secondaryCta}
-  </a>
-</Button>
+              <a href={HERO_CONTENT.secondaryHref}>{HERO_CONTENT.secondaryCta}</a>
+            </Button>
           </div>
 
-          {/* Stats */}
-          <div className="animate-fade-up animate-fade-up-delay-4 flex flex-wrap gap-8 pt-6 border-t border-[var(--border)]">
-            {HERO_CONTENT.stats.map((stat) => (
-              <div key={stat.num}>
-                <div className="font-display text-[22px] font-bold leading-none text-[var(--text-primary)]">
-                  {stat.num}
+          {/* Capability chips */}
+          <div className="animate-fade-up animate-fade-up-delay-4 flex flex-wrap gap-x-8 gap-y-3 pt-6 border-t border-[var(--border)]">
+            {HERO_CONTENT.chips.map((chip) => {
+              const Icon = getIcon(chip.icon);
+              return (
+                <div key={chip.label} className="flex items-center gap-2">
+                  <Icon size={15} className="text-[var(--brand-blue)] shrink-0" />
+                  <span className="text-[12.5px] text-[var(--text-muted)]">{chip.label}</span>
                 </div>
-                <div className="text-[12px] text-[var(--text-muted)] mt-1">{stat.desc}</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

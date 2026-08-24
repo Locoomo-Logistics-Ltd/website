@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Package } from "lucide-react";
 import { LogoIcon } from "@/components/icons/LogoIcon";
 
 export default function NotFound() {
@@ -39,7 +40,7 @@ export default function NotFound() {
           }}
           aria-hidden="true"
         >
-          📦
+          <Package size={30} className="text-[var(--brand-blue)]" />
         </div>
 
         {/* Copy */}

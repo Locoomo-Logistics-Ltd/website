@@ -1,13 +1,13 @@
 import FAQ from "@/components/sections/FAQ";
 import AboutPageHero from "@/components/sections/AboutPageHero";
-import MobileAppMockup from "@/components/sections/MobileAppMockup";
+import WhyLocoomoGrid from "@/components/sections/WhyLocoomoGrid";
 
 
 export default function AboutPage() {
   return (
     <main>
       <AboutPageHero />
-      <MobileAppMockup />
+      <WhyLocoomoGrid />
       <FAQ />
     </main>
   );

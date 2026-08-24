@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/icons";
-// import { WAITLIST_LINK } from "@/constants/brand";
+import { APP_ROLE_SELECT_URL } from "@/constants/brand";
 
 /**
  * About page hero section.
@@ -47,24 +47,23 @@ export default function AboutPageHero() {
               id="about-hero-heading"
               className="font-display text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white"
             >
-              Your peace,{" "}
+              Built in Lagos.{" "}
               <span className="block text-[var(--brand-blue-light)] leading-none">
-                Our promise.
+                Designed for neighbourhoods everywhere.
               </span>
             </h1>
 
             <p className="text-[16px] text-white/70 leading-[1.75] max-w-[480px]">
-              Locoomo is changing the way logistics works in Nigeria by creating
-              more options for businesses and individuals. Think of us as the
-              &ldquo;Uber for Logistics&rdquo;, offering smarter deliveries through
-              a vast network of Pickup Stations.
+              Locoomo is a logistics network built around a simple idea: the
+              businesses your neighbourhood already trusts can become part of
+              how packages move through it. We&apos;re starting in Lagos, and
+              building for neighbourhoods everywhere.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center md:justify-start mt-2">
               <Button variant="primary" size="lg" asChild>
-                 <Link href="/#waitlist"  rel="noopener noreferrer">
-          
-                  Get Started <ArrowRightIcon size={16} />
+                <Link href={APP_ROLE_SELECT_URL} target="_blank" rel="noopener noreferrer">
+                  Book a Delivery <ArrowRightIcon size={16} />
                 </Link>
               </Button>
             </div>
