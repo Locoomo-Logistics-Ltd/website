@@ -48,11 +48,13 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#060b17" },
-  ],
+  // Site defaults to light mode regardless of OS preference; the
+  // ThemeProvider updates this tag's content directly when the user
+  // toggles theme (see hooks/useTheme.ts).
+  themeColor: "#ffffff",
 };
+
+const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('locoomo-theme');if(t==='dark'){document.documentElement.classList.add('dark-mode');}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -61,7 +63,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body
         className={`${sora.variable} ${dmSans.variable} font-sans antialiased`}
         suppressHydrationWarning

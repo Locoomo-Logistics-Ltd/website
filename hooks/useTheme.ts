@@ -2,90 +2,45 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-//================================ CODE FOR LIGHT, DARK, SYSTEM CONTROL =======================
-
-/*
-
-export type Theme = "light" | "dark" | "system";
+export type Theme = "light" | "dark";
 
 const THEME_KEY = "locoomo-theme";
 
-function resolveTheme(theme: Theme): "light" | "dark" {
-  if (theme === "system") {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+function applyThemeToDocument(theme: Theme) {
+  document.documentElement.classList.toggle("dark-mode", theme === "dark");
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute("content", theme === "dark" ? "#060b17" : "#ffffff");
   }
-  return theme;
 }
 
+/**
+ * Site theme: defaults to light for every visitor, independent of OS
+ * preference. Once a user toggles it, the choice is persisted and
+ * restored on future visits (see the inline script in app/layout.tsx,
+ * which applies the saved class before hydration to avoid a flash).
+ */
 export function useTheme() {
-  const [theme, setThemeState] = useState<Theme>("system");
-  const [resolved, setResolved] = useState<"light" | "dark">("light");
+  const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Apply theme class to <html>
-  const applyTheme = useCallback((t: Theme) => {
-    const r = resolveTheme(t);
-    document.documentElement.classList.toggle("dark-mode", r === "dark");
-    setResolved(r);
+  useEffect(() => {
+    const saved = localStorage.getItem(THEME_KEY);
+    const initial: Theme = saved === "dark" ? "dark" : "light";
+    setThemeState(initial);
+    applyThemeToDocument(initial);
+    setMounted(true);
   }, []);
 
-  // Init on mount
-  useEffect(() => {
-    const saved = (localStorage.getItem(THEME_KEY) as Theme) ?? "system";
-    setThemeState(saved);
-    applyTheme(saved);
-    setMounted(true);
-
-    // Watch OS preference change when in system mode
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = () => {
-      const current = (localStorage.getItem(THEME_KEY) as Theme) ?? "system";
-      if (current === "system") applyTheme("system");
-    };
-    mq.addEventListener("change", handleChange);
-    return () => mq.removeEventListener("change", handleChange);
-  }, [applyTheme]);
-
-  const setTheme = useCallback(
-    (t: Theme) => {
-      localStorage.setItem(THEME_KEY, t);
-      setThemeState(t);
-      applyTheme(t);
-    },
-    [applyTheme]
-  );
-
-  return { theme, resolved, setTheme, mounted };
-}
-
-*/
-
-// ===========================================================
-
-// =================== JUST SYSTEM VERSION ONLY =====================
-export type Theme = "light" | "dark" | "system"; // Kept for type compatibility
-
-export function useTheme() {
-  const [resolved, setResolved] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
-
-  const applyTheme = useCallback(() => {
-    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    document.documentElement.classList.toggle("dark-mode", isDark);
-    setResolved(isDark ? "dark" : "light");
+  const setTheme = useCallback((t: Theme) => {
+    localStorage.setItem(THEME_KEY, t);
+    setThemeState(t);
+    applyThemeToDocument(t);
   }, []);
 
-  useEffect(() => {
-    applyTheme();
-    setMounted(true);
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  }, [theme, setTheme]);
 
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    mq.addEventListener("change", applyTheme);
-
-    return () => mq.removeEventListener("change", applyTheme);
-  }, [applyTheme]);
-
-  return { resolved, mounted };
+  return { theme, resolved: theme, setTheme, toggleTheme, mounted };
 }

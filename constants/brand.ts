@@ -16,7 +16,7 @@ export const SITE_DESCRIPTION =
 // each role from this single entry point, so no role-specific sub-route
 // should be invented on the marketing site.
 export const APP_URL = "https://app.locoomo.com";
-export const APP_ROLE_SELECT_URL = "https://app.locoomo.com/role-select";
+export const APP_ROLE_SELECT_URL = "https://app.locoomo.com";
 
 export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/locoomo?igsh=MXVwbmx2bm5vMndj",

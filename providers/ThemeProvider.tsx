@@ -1,28 +1,26 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme, type Theme } from "@/hooks/useTheme";
 
 interface ThemeContextValue {
-  // theme: Theme;
-  resolved: "light" | "dark";
-  // setTheme: (t: Theme) => void;
+  theme: Theme;
+  setTheme: (t: Theme) => void;
+  toggleTheme: () => void;
   mounted: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  // theme: "system",
-  resolved: "light",
-  // setTheme: () => {},
+  theme: "light",
+  setTheme: () => {},
+  toggleTheme: () => {},
   mounted: false,
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const value = useTheme();
   return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
 

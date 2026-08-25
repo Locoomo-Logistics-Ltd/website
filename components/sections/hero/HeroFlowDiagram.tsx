@@ -104,8 +104,8 @@ export default function HeroFlowDiagram() {
               className={n.hub ? "text-white" : "text-[var(--brand-blue)]"}
             />
             <span
-              className="text-[8px] font-semibold uppercase tracking-[0.08em] whitespace-nowrap"
-              style={{ color: n.hub ? "#3D93E0" : "var(--text-muted)" }}
+              className="font-semibold uppercase tracking-[0.08em] whitespace-nowrap"
+              style={{ color: n.hub ? "#ffffff" : "var(--text-muted)", fontSize: n.hub ? "6px" : "7px" }}
             >
               {n.label}
             </span>
