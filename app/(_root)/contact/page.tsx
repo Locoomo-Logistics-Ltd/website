@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { APP_ROLE_SELECT_URL, CONTACT_EMAIL, SOCIAL_LINKS } from "@/constants/brand";
+import { APP_URL, CONTACT_EMAIL, SOCIAL_LINKS } from "@/constants/brand";
 import {
   Mail,
   MessageCircleMore,
@@ -150,7 +150,7 @@ export default function ContactPage() {
 
             <div className="shrink-0">
               <Button variant="primary" size="lg" asChild>
-                <Link href={APP_ROLE_SELECT_URL} target="_blank" rel="noopener noreferrer">
+                <Link href={APP_URL} target="_blank" rel="noopener noreferrer">
                   Book a Delivery →
                 </Link>
               </Button>

@@ -1,4 +1,4 @@
-import { APP_ROLE_SELECT_URL } from "@/constants/brand";
+import { APP_ROLE_SELECT_URL, APP_URL } from "@/constants/brand";
 import type { IconKey } from "@/components/icons/map";
 
 // ── Navigation ───────────────────────────────────────────────
@@ -19,7 +19,7 @@ export const HERO_CONTENT = {
   subheadline:
     "Locoomo connects you to a network of neighbourhood Pickup Stations and delivery options, so sending and receiving packages fits your life, not the other way around.",
   primaryCta: "Book a Delivery",
-  primaryHref: APP_ROLE_SELECT_URL,
+  primaryHref: APP_URL,
   secondaryCta: "Find a Pickup Station",
   secondaryHref: "#pickup-stations",
   chips: [

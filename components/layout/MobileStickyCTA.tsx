@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
-import { APP_ROLE_SELECT_URL } from "@/constants/brand";
+import { APP_URL } from "@/constants/brand";
 
 /**
  * Fixed bottom "Book a Delivery" bar, mobile/tablet only (hidden at lg+
@@ -15,7 +15,7 @@ export default function MobileStickyCTA() {
       style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
     >
       <Link
-        href={APP_ROLE_SELECT_URL}
+        href={APP_URL}
         target="_blank"
         rel="noopener noreferrer"
         className="pointer-events-auto flex items-center justify-center gap-2 w-full h-[52px] rounded-[14px] bg-[var(--brand-blue)] text-white text-[15px] font-semibold shadow-[0_8px_28px_rgba(0,108,223,0.45)] transition-transform duration-200 active:scale-[0.98]"

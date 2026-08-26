@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/icons";
-import { APP_ROLE_SELECT_URL } from "@/constants/brand";
+import { APP_URL } from "@/constants/brand";
 
 /**
  * About page hero section.
@@ -62,7 +62,7 @@ export default function AboutPageHero() {
 
             <div className="flex flex-col sm:flex-row justify-center md:justify-start mt-2">
               <Button variant="primary" size="lg" asChild>
-                <Link href={APP_ROLE_SELECT_URL} target="_blank" rel="noopener noreferrer">
+                <Link href={APP_URL} target="_blank" rel="noopener noreferrer">
                   Book a Delivery <ArrowRightIcon size={16} />
                 </Link>
               </Button>
