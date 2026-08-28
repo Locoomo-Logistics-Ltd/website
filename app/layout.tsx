@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Sora, DM_Sans } from "next/font/google";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import { SITE_NAME, SITE_DESCRIPTION } from "@/constants/brand";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/constants/brand";
+import { PAGE_SEO } from "@/constants/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 import "@/app/globals.css";
 
 const sora = Sora({
@@ -20,28 +23,38 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} — Neighbourhood Package Delivery & Pickup Stations`,
+  metadataBase: new URL(SITE_URL),
+  // Every page's title in constants/seo.ts is already a complete
+  // "X | Locoomo" string tuned for its own search intent, so this is a
+  // plain default rather than a `template` — a template would double up
+  // the "| Locoomo" suffix on every page that overrides it.
+  title: PAGE_SEO.home.title,
   description: SITE_DESCRIPTION,
-  keywords: [
-    "package delivery",
-    "parcel delivery Lagos",
-    "Pickup Station",
-    "delivery service",
-    "send packages",
-    "neighbourhood delivery",
-    "logistics network",
-  ],
+  applicationName: SITE_NAME,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: SITE_NAME,
-    description: SITE_DESCRIPTION,
+    title: PAGE_SEO.home.ogTitle ?? PAGE_SEO.home.title,
+    description: PAGE_SEO.home.ogDescription ?? SITE_DESCRIPTION,
+    url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_NG",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_NAME,
-    description: SITE_DESCRIPTION,
+    title: PAGE_SEO.home.ogTitle ?? PAGE_SEO.home.title,
+    description: PAGE_SEO.home.ogDescription ?? SITE_DESCRIPTION,
   },
 };
 
@@ -65,6 +78,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
       </head>
       <body
         className={`${sora.variable} ${dmSans.variable} font-sans antialiased`}

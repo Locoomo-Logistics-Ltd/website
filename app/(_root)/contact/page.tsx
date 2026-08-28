@@ -1,14 +1,35 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { APP_URL, CONTACT_EMAIL, SOCIAL_LINKS } from "@/constants/brand";
+import { PAGE_SEO } from "@/constants/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/schema";
 import {
   Mail,
   MessageCircleMore,
   Instagram,
   Linkedin,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: PAGE_SEO.contact.title,
+  description: PAGE_SEO.contact.description,
+  alternates: { canonical: PAGE_SEO.contact.path },
+  openGraph: {
+    title: PAGE_SEO.contact.ogTitle ?? PAGE_SEO.contact.title,
+    description: PAGE_SEO.contact.ogDescription ?? PAGE_SEO.contact.description,
+    url: PAGE_SEO.contact.path,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_SEO.contact.ogTitle ?? PAGE_SEO.contact.title,
+    description: PAGE_SEO.contact.ogDescription ?? PAGE_SEO.contact.description,
+  },
+};
 
 const CONTACT_METHODS = [
   {
@@ -44,6 +65,12 @@ const CONTACT_METHODS = [
 export default function ContactPage() {
   return (
     <main>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       {/* Hero */}
       <section
         className="relative overflow-hidden pt-[140px] pb-20"

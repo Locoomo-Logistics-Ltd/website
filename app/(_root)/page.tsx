@@ -1,3 +1,5 @@
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqJsonLd } from "@/lib/schema";
 import Hero from "@/components/sections/Hero";
 import WhatCanIDo from "@/components/sections/WhatCanIDo";
 // import ServiceOptions from "@/components/sections/ServiceOptions";
@@ -14,6 +16,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 export default function HomePage() {
   return (
     <main>
+      <JsonLd data={faqJsonLd()} />
       <Hero />
       <WhatCanIDo />
       {/* <ServiceOptions /> */}

@@ -9,7 +9,12 @@ export const BRAND_COLORS = {
 export const SITE_NAME = "Locoomo";
 export const SITE_TAGLINE = "Neighbourhood logistics, connected.";
 export const SITE_DESCRIPTION =
-  "Locoomo connects customers to a network of neighbourhood Pickup Stations and delivery options — book a delivery, find a Pickup Station, or become part of the network. Starting in Lagos, built for neighbourhoods everywhere.";
+  "Locoomo connects customers to a network of neighbourhood Pickup Stations and delivery options; book a delivery, find a Pickup Station, or become part of the network. Starting in Lagos, built for neighbourhoods everywhere.";
+
+// The canonical production domain for THIS marketing site (not the app —
+// see APP_URL below). Used as `metadataBase` and for canonical/OG URLs so
+// they never resolve to localhost or a staging host.
+export const SITE_URL = "https://www.locoomo.com";
 
 // The live product. Every "use Locoomo" CTA (Consumer, Rider, or Node
 // Operator / Pickup Station signup) routes here — the app self-registers
