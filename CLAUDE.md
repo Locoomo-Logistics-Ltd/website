@@ -94,6 +94,12 @@ should ever appear:
 - `APP_URL` (`https://app.locoomo.com`) — used for the generic "Open App"
   link.
 
+One exception, the seasonal **Christmas Shopping Fund** (`PROMO_URL` in
+`constants/brand.ts`, `https://christmas.locoomo.com/`): it's a separate
+campaign site with its own application form, so its CTA links out to it.
+The homepage banner is driven by `CHRISTMAS_PROMO_CONTENT` in
+`constants/content.ts`; set `enabled: false` when the campaign ends.
+
 There is **no self-serve Business account** — the app's roles are
 Consumer, Rider, Node Operator, and Admin (see `constants/legal.ts`,
 Terms § 1/3/5). So "Partner With Locoomo" (the For Businesses CTA, the

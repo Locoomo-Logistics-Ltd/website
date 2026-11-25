@@ -22,6 +22,7 @@ import {
   Home,
   User,
   ShieldCheck,
+  Gift,
   type LucideIcon,
 } from "lucide-react";
 
@@ -56,6 +57,7 @@ export const ICON_MAP = {
   home: Home,
   user: User,
   shieldCheck: ShieldCheck,
+  gift: Gift,
 } as const satisfies Record<string, LucideIcon>;
 
 export type IconKey = keyof typeof ICON_MAP;

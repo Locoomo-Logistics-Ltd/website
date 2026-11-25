@@ -23,6 +23,11 @@ export const SITE_URL = "https://www.locoomo.com";
 export const APP_URL = "https://app.locoomo.com";
 export const APP_ROLE_SELECT_URL = "https://app.locoomo.com/role-select";
 
+// The Christmas Shopping Fund promo lives on its own site (separate app with
+// its own application form + admin). We link to it, never embed or duplicate
+// the form here.
+export const PROMO_URL = "https://christmas.locoomo.com/";
+
 export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/locoomo?igsh=MXVwbmx2bm5vMndj",
   linkedin: "https://www.linkedin.com/company/locoomo/",

@@ -1,4 +1,4 @@
-import { APP_ROLE_SELECT_URL, APP_URL } from "@/constants/brand";
+import { APP_ROLE_SELECT_URL, APP_URL, PROMO_URL } from "@/constants/brand";
 import type { IconKey } from "@/components/icons/map";
 
 // ── Navigation ───────────────────────────────────────────────
@@ -21,12 +21,65 @@ export const HERO_CONTENT = {
   primaryCta: "Book a Delivery",
   primaryHref: APP_URL,
   secondaryCta: "Find a Pickup Station",
-  secondaryHref: "#pickup-stations",
+  secondaryHref: "#find-station",
   chips: [
     { icon: "store" as IconKey, label: "A growing Pickup Station network" },
     { icon: "slidersHorizontal" as IconKey, label: "Pickup Station close to you, your choice" },
     { icon: "mapPin" as IconKey, label: "Live and moving packages in Lagos" },
   ],
+} as const;
+
+// ── Christmas Shopping Fund (seasonal promo) ─────────────────
+// Copy mirrors https://christmas.locoomo.com/. Set `enabled: false` when the
+// campaign ends and the whole section disappears from the homepage.
+export const CHRISTMAS_PROMO_CONTENT = {
+  enabled: true,
+  label: "Christmas Shopping Fund",
+  headline: "We're putting",
+  headlineAccent: "₦5 million",
+  headlineEnd: "behind your December shopping.",
+  body: "Choose something you genuinely want from your favourite vendor. We fund your approved purchase. We move it free to a Locoomo Pickup Station. You pick it up.",
+  cta: "Apply for the Christmas Fund",
+  href: PROMO_URL,
+  fineprint: "Limited slots. Open to Lagos residents only. Eligibility and campaign terms apply.",
+  potTitle: "The Christmas pot",
+  potTotal: "265 shopping slots",
+  tiers: [
+    { who: "First 15", amount: "₦50,000" },
+    { who: "Next 100", amount: "₦20,000" },
+    { who: "Next 150", amount: "₦15,000" },
+  ],
+  points: [
+    {
+      icon: "wallet" as IconKey,
+      title: "We fund your approved purchase",
+      desc: "Up to ₦50,000, paid straight to your vendor. Not cash to you.",
+    },
+    {
+      icon: "truck" as IconKey,
+      title: "We move it free",
+      desc: "Delivery to a Locoomo Pickup Station is on us.",
+    },
+    {
+      icon: "mapPin" as IconKey,
+      title: "You pick it up",
+      desc: "Collect from the Pickup Station you helped bring to your area.",
+    },
+  ],
+  popup: {
+    badge: "Limited slots",
+    title: "Up to ₦50,000 toward your Christmas shopping",
+    body: "Locoomo is putting ₦5 million behind 265 shopping slots. We fund your approved purchase and move it free to a Pickup Station.",
+    cta: "Apply for the Christmas Fund",
+    fineprint: "Lagos residents only. Eligibility and campaign terms apply.",
+    close: "Close",
+    pill: "Christmas Fund",
+    pillLabel: "Open the Christmas Shopping Fund",
+  },
+  catch: {
+    title: "One rule: don't buy anything yet.",
+    body: "Wait until Locoomo approves your slot. Applying doesn't mean you've been selected, and purchases made before approval may not qualify for funding.",
+  },
 } as const;
 
 // ── What Can I Do ────────────────────────────────────────────
@@ -61,7 +114,7 @@ export const WHAT_CAN_I_DO_CONTENT = {
       title: "Find a Pickup Station",
       desc: "Find convenient Pickup Station locations within the Locoomo network.",
       cta: "Find a Pickup Station",
-      href: "#pickup-stations",
+      href: "#find-station",
     },
     {
       icon: "store" as IconKey,
@@ -100,7 +153,7 @@ export const SERVICE_OPTIONS_CONTENT = {
         "Fewer missed deliveries",
       ],
       cta: "Find a Pickup Station",
-      href: "#pickup-stations",
+      href: "#find-station",
     },
     {
       icon: "truck" as IconKey,
@@ -238,6 +291,46 @@ export const PICKUP_STATION_NETWORK_CONTENT = {
     cta: "Become a Pickup Station",
     href: APP_ROLE_SELECT_URL,
   },
+} as const;
+
+// ── Find a Pickup Station (live directory) ───────────────────
+export const FIND_STATION_CONTENT = {
+  label: "Find a Pickup Station",
+  headline: "Find a Pickup Station near you.",
+  description:
+    "Search any area, street or landmark to see the Pickup Stations closest to it, with their address, opening hours and whether they have space for parcels right now.",
+  placeholder: "Search an area, street or landmark, e.g. Lekki Phase 1",
+  searchCta: "Search",
+  useMyLocation: "Use my location",
+  radiusLabel: "Within",
+  radiusOptions: [5, 10, 25, 50],
+  defaultRadiusKm: 10,
+  onlyAcceptingLabel: "Only stations with space",
+  browseTitle: "Pickup Stations on Locoomo",
+  nearTitlePrefix: "Pickup Stations near",
+  textTitlePrefix: "Results for",
+  empty: {
+    title: "No Pickup Stations found here yet",
+    body: "We're growing the network, starting in Lagos. Try a wider distance, a nearby area, or tell us you'd like a station in your neighbourhood.",
+    widen: "Search a wider area",
+    contactCta: "Request a station",
+    contactHref: "/contact",
+  },
+  error: {
+    title: "We couldn't load Pickup Stations",
+    retry: "Try again",
+  },
+  card: {
+    accepting: "Accepting parcels",
+    full: "Currently full",
+    details: "View details",
+    hideDetails: "Hide details",
+    hoursTitle: "Opening hours",
+    directions: "Get directions",
+    sendHere: "Send a parcel here",
+    sendHereHref: APP_ROLE_SELECT_URL,
+  },
+  loadMore: "Show more stations",
 } as const;
 
 // ── For Customers ────────────────────────────────────────────
@@ -383,7 +476,7 @@ export const FINAL_CTA_CONTENT = {
   primaryCta: "Book a Delivery",
   primaryHref: APP_ROLE_SELECT_URL,
   secondaryCta: "Find a Pickup Station",
-  secondaryHref: "#pickup-stations",
+  secondaryHref: "#find-station",
 } as const;
 
 // ── Footer ───────────────────────────────────────────────────
@@ -396,7 +489,7 @@ export const FOOTER_CONTENT = {
       title: "Product",
       links: [
         { label: "Book a Delivery", href: APP_ROLE_SELECT_URL },
-        { label: "Find a Pickup Station", href: "/#pickup-stations" },
+        { label: "Find a Pickup Station", href: "/#find-station" },
         { label: "Track a Package", href: APP_ROLE_SELECT_URL },
         { label: "How It Works", href: "/#how-it-works" },
       ],
